@@ -7,9 +7,9 @@ __sb.config = {
 __sb.resources = {
     css: [
         // name[, dev]
-        '__main',
         ['bootstrap', 'min'],
-        ['bootstrap-theme', 'min']
+        ['bootstrap-theme', 'min'],
+        '__main'
     ],
     js: [
         // name[, dev]
