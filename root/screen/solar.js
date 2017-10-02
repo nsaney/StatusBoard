@@ -3,7 +3,7 @@
     
     var solar = new __sb.Screen({
         name: 'Solar', 
-        updateMs: 1000*60*60
+        updateSeconds: 60*60
     });
     solar.getAjaxSettings = function getAjaxSettings() {
         var latitude = __sb.config.latitude;

@@ -6,7 +6,7 @@
     function Screen(initFields) {
         initFields = initFields || {};
         this.NAME = initFields.name || 'Unknown';
-        this.UPDATE_MS = initFields.updateMs || -1;
+        this.UPDATE_MS = (initFields.updateSeconds || -1) * 1000;
         this.__isStarted = false;
         this.__timeoutId = -1;
         this.data = ko.observable(null);
