@@ -1,19 +1,28 @@
 __sb.config = {
-    isProd: false,
+    isProd: true,
     latitude: +33.7490,
-    longidute: -84.3880
+    longitude: -84.3880
 };
 
 __sb.resources = {
-	css: [
-		'__main',
-		['bootstrap', 'min'],
-		['bootstrap-theme', 'min']
-	],
-	js : [
-		['jquery-3.2.1', 'min'],
-		['bootstrap', 'min'],
-		['knockout-3.4.2', 'debug']
-	]
+    css: [
+        // name[, dev]
+        '__main',
+        ['bootstrap', 'min'],
+        ['bootstrap-theme', 'min']
+    ],
+    js: [
+        // name[, dev]
+        ['moment', 'min'],
+        ['jquery-3.2.1', 'min'],
+        ['bootstrap', 'min'],
+        ['knockout-3.4.2', 'debug'],
+        '__screen',
+        '__main'
+    ]
 };
 
+__sb.screens = [
+    // name, required
+    ['solar', true]
+];
