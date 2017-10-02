@@ -9,6 +9,7 @@
         this.UPDATE_MS = (initFields.updateSeconds || -1) * 1000;
         this.__isStarted = false;
         this.__timeoutId = -1;
+        this.isUpdating = ko.observable(false);
         this.data = ko.observable(null);
         this.lastSuccessTimestamp = ko.observable(null);
         this.lastErrorTimestamp = ko.observable(null);
@@ -19,9 +20,9 @@
     Screen.prototype.getAjaxSettings = __sb.fn.abstractMethod;
     
     ////// Default Methods //////
-    Screen.prototype.parseData = function parseData(data) {
-        return data;
-    }
+    Screen.prototype.parseRawData = function parseRawData(rawData) {
+        return rawData;
+    };
     
     ////// Concrete Methods //////
     Screen.prototype.start = function start() {
@@ -38,40 +39,71 @@
     
     Screen.prototype.__doUpdate = function __doUpdate() {
         var self = this;
-        var ajaxSettings = self.getAjaxSettings();
-        var jqXhr = $.ajax(ajaxSettings);
+        if (self.isUpdating()) { return; }
+        self.isUpdating(true);
         
-        jqXhr.done(onSuccess);
-        function onSuccess(data, textStatus, __) {
+        var ajaxSettings = self.getAjaxSettings();
+        var promise = null;
+        if (ajaxSettings === Screen.SPOOF_IN_PARSE_RAW_DATA) {
+            promise = Screen.spoofAjax();
+        }
+        else {
+            promise = Screen.callAjax(ajaxSettings);
+        }
+        
+        promise.done(promise_done);
+        function promise_done(rawData) {
             try {
-                var parsedData = self.parseData(data);
+                var parsedData = self.parseRawData(rawData);
                 self.data(parsedData);
-                self.lastSuccessTimestamp(new Date());
+                self.lastSuccessTimestamp(moment());
             }
             catch (ex) {
-                onError(jqXhr, textStatus, ex);
+                promise_fail(ex);
             }
         }
         
-        jqXhr.fail(onError);
-        function onError(__, textStatus, errorThrown) {
+        promise.fail(promise_fail);
+        function promise_fail(errorThrown) {
             self.lastError(errorThrown);
-            self.lastErrorTimestamp(new Date());
+            self.lastErrorTimestamp(moment());
+            console.logError(errorThrown);
         }
         
-        jqXhr.always(onComplete);
-        function onComplete() {
+        promise.always(promise_always);
+        function promise_always() {
+            self.isUpdating(false);
             window.clearTimeout(self.__timeoutId);
             if ((typeof self.UPDATE_MS === 'number') && self.UPDATE_MS >= 5000) {
                 self.__timeoutId = window.setTimeout(
                     redoUpdate, 
                     self.UPDATE_MS
                 );
-                function redoUpdate() {
-                    self.__doUpdate();
-                }
+                function redoUpdate() { self.__doUpdate(); }
             }
         }
+    };
+    
+    ////// Static Methods //////
+    Screen.callAjax = function callAjax(ajaxSettings) {
+        var deferred = $.Deferred();
+        var jqXhr = $.ajax(ajaxSettings);
+        jqXhr.done(jqXhr_done);
+        function jqXhr_done(rawData, textStatus) {
+            deferred.resolve(rawData);
+        }
+        jqXhr.fail(jqXhr_fail);
+        function jqXhr_fail(_, __, errorThrown) {
+            deferred.reject(errorThrown);
+        }
+        return deferred.promise();
+    };
+    
+    Screen.SPOOF_IN_PARSE_RAW_DATA = -1;
+    Screen.spoofAjax = function spoofAjax() {
+        var deferred = $.Deferred();
+        deferred.resolve(null);
+        return deferred.promise();
     };
     
 })();

@@ -24,5 +24,6 @@ __sb.resources = {
 
 __sb.screens = [
     // name, required
-    ['solar', true]
+    ['solar', true],
+    ['weather', false]
 ];
