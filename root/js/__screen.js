@@ -64,9 +64,12 @@
             window.clearTimeout(self.__timeoutId);
             if ((typeof self.UPDATE_MS === 'number') && self.UPDATE_MS >= 5000) {
                 self.__timeoutId = window.setTimeout(
-                    self.__doUpdate,
+                    redoUpdate, 
                     self.UPDATE_MS
                 );
+                function redoUpdate() {
+                    self.__doUpdate();
+                }
             }
         }
     };

@@ -1,6 +1,10 @@
 (function () {
     "use strict";
-    var solar = new __sb.Screen('Solar', 1000*10);
+    
+    var solar = new __sb.Screen({
+        name: 'Solar', 
+        updateMs: 1000*60*60
+    });
     solar.getAjaxSettings = function getAjaxSettings() {
         var latitude = __sb.config.latitude;
         var longitude = __sb.config.longitude;
