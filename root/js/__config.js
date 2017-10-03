@@ -9,7 +9,7 @@ __sb.resources = {
         // name[, dev]
         ['bootstrap', 'min'],
         ['bootstrap-theme', 'min'],
-        '__main'
+        '__index'
     ],
     js: [
         // name[, dev]
@@ -18,7 +18,7 @@ __sb.resources = {
         ['bootstrap', 'min'],
         ['knockout-3.4.2', 'debug'],
         '__screen',
-        '__main'
+        '__index'
     ]
 };
 
