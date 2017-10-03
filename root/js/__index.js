@@ -16,7 +16,7 @@ $(function () {
         
         var screen = new __sb.Screen({
             name: name,
-            udpateSeconds: (screenItem[1] || -1),
+            updateSeconds: (screenItem[1] || -1),
             required: (screenItem[2] || false)
         });
         initFn.call(screen);
