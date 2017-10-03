@@ -10,6 +10,10 @@
         try { throw new Error('Warning! Unimplemented abstract method!'); }
         catch (ex) { console.log(ex); }
     };
+    __sb.fn.__loadAllScreens = function loadAllScreens() {
+        loadAll(__sb.screens, 'screen', 'html', getScreenName, loadTemplate);
+        loadAll(__sb.screens, 'screen', 'js', getScreenName, loadScript);
+    };
     
     //// CYA ////
     if (!window.console) { window.console = {}; }
@@ -22,11 +26,8 @@
     };
     
     //// Initialization ////
-    loadAll(__sb.resources.css, 'css', 'css', getResourceName, loadCssFile);
-    loadAll(__sb.resources.js, 'js', 'js', getResourceName, loadJsFile);
-    __sb.fn.__loadAllScreens = function loadAllScreens() {
-        loadAll(__sb.screens, 'screen', 'js', getScreenName, loadJsFile);
-    };
+    loadAll(__sb.resources.css, 'css', 'css', getResourceName, loadStyleSheet);
+    loadAll(__sb.resources.js, 'js', 'js', getResourceName, loadScript);
     
     
     ////// Helper Functions //////
@@ -38,7 +39,7 @@
             var item = array && array[i];
             if (!item) { return; }
             var element = loadItem(item, folder, extension, nameParser, loader);
-            element.onload = function elementOnLoad() {
+            element.onload = element.onerror = function elementOnLoad() {
                 loadIndividual(i + 1);
             };
         }
@@ -50,7 +51,7 @@
         return loader(name, fullFileName);
     }
     
-    function loadCssFile(name, fullFileName) {
+    function loadStyleSheet(name, fullFileName) {
         var link = document.createElement('link');
         link.id = name;
         link.rel = 'stylesheet';
@@ -59,11 +60,17 @@
         return link;
     }
     
-    function loadJsFile(name, fullFileName) {
+    function loadScript(name, fullFileName) {
         var script = document.createElement('script');
         script.id = name;
         script.src = fullFileName;
         document.head.appendChild(script);
+        return script;
+    }
+    
+    function loadTemplate(name, fullFileName) {
+        var script = loadScript(name, fullFileName);
+        script.type = 'text/html';
         return script;
     }
     
