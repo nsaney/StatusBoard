@@ -7,6 +7,7 @@
         initFields = initFields || {};
         this.NAME = initFields.name || 'Unknown';
         this.UPDATE_MS = (initFields.updateSeconds || -1) * 1000;
+        this.REQUIRED = initFields.required || false;
         this.__isStarted = false;
         this.__timeoutId = -1;
         this.isUpdating = ko.observable(false);

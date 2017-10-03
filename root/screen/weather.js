@@ -1,14 +1,10 @@
-(function () {
+__sb.fn.__addScreen('weather', function weather() {
     "use strict";
     
-    var weather = new __sb.Screen({
-        name: 'Weather', 
-        updateSeconds: 60*10
-    });
-    weather.getAjaxSettings = function getAjaxSettings() {
+    this.getAjaxSettings = function getAjaxSettings() {
         return __sb.Screen.SPOOF_IN_PARSE_RAW_DATA;
     };
-    weather.parseRawData = function parseRawData(rawData) {
+    this.parseRawData = function parseRawData(rawData) {
         return {
             high: 70,
             low: 60,
@@ -16,6 +12,4 @@
             precip: 40
         }
     };
-    
-    __sb.fn.__addScreen(weather);
-})();
+});

@@ -1,11 +1,7 @@
-(function () {
+__sb.fn.__addScreen('solar', function solar() {
     "use strict";
     
-    var solar = new __sb.Screen({
-        name: 'Solar', 
-        updateSeconds: 60*60
-    });
-    solar.getAjaxSettings = function getAjaxSettings() {
+    this.getAjaxSettings = function getAjaxSettings() {
         var latitude = __sb.config.latitude;
         var longitude = __sb.config.longitude;
         var now = moment();
@@ -25,6 +21,4 @@
             }
         };
     };
-    
-    __sb.fn.__addScreen(solar);
-})();
+});

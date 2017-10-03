@@ -23,7 +23,7 @@ __sb.resources = {
 };
 
 __sb.screens = [
-    // name, required
-    ['solar', true],
-    ['weather', false]
+    // name, updateSeconds, required
+    ['solar',   60*60,  true],
+    ['weather', 10*60, false]
 ];
