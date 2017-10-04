@@ -1,6 +1,6 @@
 __sb.config = {
     isProd: false,
-    tickSeconds: 5,
+    tickSeconds: 1,
     momentLongFormat: 'dddd, MMMM Do YYYY, h:mm:ss a',
     latitude: +33.7490,
     longitude: -84.3880

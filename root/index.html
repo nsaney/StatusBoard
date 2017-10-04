@@ -37,10 +37,10 @@
             <div>
                 Last Update:
                 <span data-bind="text: timeFromLastUpdate, attr: { title: lastUpdateTooltip }"></span>
-            </div>
-            <div>
-                Next Update:
-                <span data-bind="text: timeToNextUpdate, attr: { title: nextUpdateTooltip }"></span>
+                <div class="pull-right">
+                    Next Update:
+                    <span data-bind="text: timeToNextUpdate, attr: { title: nextUpdateTooltip }"></span>
+                </div>
             </div>
             <div style="display: none;" data-bind="visible: isUpdating">
                 <div class="text-center">
@@ -53,10 +53,13 @@
         </div>
     </div>
     <footer class="footer">
-        <div class="container">
-            <p class="text-center text-muted">
+        <div class="container-fluid text-muted">
+            <span class="pull-left">
                 der Aktualisierungsstand
-            </p>
+            </span>
+            <span class="pull-right">
+                <span data-bind="text: now().format(__sb.config.momentLongFormat)"></span>
+            </span>
         </div>
     </footer>
 </body>
