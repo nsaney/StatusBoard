@@ -11,9 +11,13 @@
         catch (ex) { console.log(ex); }
     };
     __sb.fn.__loadAllScreens = function loadAllScreens() {
-        loadAll(__sb.screens, 'screen', 'html', getScreenName, loadTemplate);
+        loadAll(__sb.screens, 'template', 'html', getScreenName, loadTemplate);
         loadAll(__sb.screens, 'screen', 'js', getScreenName, loadScript);
     };
+    __sb.fn.getTemplateName = function getTemplateName(name) {
+        return name + '-template';
+    };
+    
     
     //// CYA ////
     if (!window.console) { window.console = {}; }
@@ -69,9 +73,25 @@
     }
     
     function loadTemplate(name, fullFileName) {
-        var script = loadScript(name, fullFileName);
+        var script = document.createElement('script');
+        script.id = __sb.fn.getTemplateName(name);
         script.type = 'text/html';
-        return script;
+        document.head.appendChild(script);
+        var result = { onload: __sb.fn.noop, onerror: __sb.fn.noop };
+        $.get({
+            url: fullFileName,
+            mimeType: 'text/plain',
+            cache: false,
+            success: function loadSuccess(htmlText) {
+                $(script).html(htmlText);
+                result.onload(htmlText);
+            },
+            error: function loadError(_, __, errorThrown) {
+                console.logError(errorThrown);
+                result.onerror(errorThrown);
+            }
+        });
+        return result;
     }
     
     //// Resource Loading ////

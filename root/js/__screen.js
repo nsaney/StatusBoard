@@ -4,17 +4,19 @@
     ////// Constructor //////
     __sb.Screen = Screen;
     function Screen(initFields) {
+        var self = this;
         initFields = initFields || {};
-        this.NAME = initFields.name || 'Unknown';
-        this.UPDATE_MS = (initFields.updateSeconds || -1) * 1000;
-        this.REQUIRED = initFields.required || false;
-        this.__isStarted = false;
-        this.__timeoutId = -1;
-        this.isUpdating = ko.observable(false);
-        this.data = ko.observable(null);
-        this.lastSuccessTimestamp = ko.observable(null);
-        this.lastErrorTimestamp = ko.observable(null);
-        this.lastError = ko.observable(null);
+        self.NAME = initFields.name || 'Unknown';
+        self.TEMPLATE_NAME = __sb.fn.getTemplateName(self.NAME);
+        self.UPDATE_MS = (initFields.updateSeconds || -1) * 1000;
+        self.REQUIRED = initFields.required || false;
+        self.__isStarted = false;
+        self.__timeoutId = -1;
+        self.isUpdating = ko.observable(false);
+        self.data = ko.observable(null);
+        self.lastSuccessTimestamp = ko.observable(null);
+        self.lastErrorTimestamp = ko.observable(null);
+        self.lastError = ko.observable(null);
     };
     
     ////// Abstract Methods //////
@@ -58,6 +60,8 @@
                 var parsedData = self.parseRawData(rawData);
                 self.data(parsedData);
                 self.lastSuccessTimestamp(moment());
+                self.lastError(null);
+                self.lastErrorTimestamp(null);
             }
             catch (ex) {
                 promise_fail(ex);

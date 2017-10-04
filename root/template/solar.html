@@ -1,0 +1,23 @@
+<div>
+    Update MS: <span data-bind="text: UPDATE_MS.toLocaleString()"></span>
+</div>
+<div>
+    Required: <span data-bind="text: REQUIRED"></span>
+</div>
+<div>
+    Is Updating: <span data-bind="text: isUpdating"></span>
+</div>
+<div>
+    Last Success Timestamp: <span data-bind="text: lastSuccessTimestamp"></span>
+</div>
+<div>
+    Data:
+    <pre data-bind="text: JSON.stringify(data())"></pre>
+</div>
+<div>
+    Last Error Timestamp: <span data-bind="text: lastErrorTimestamp"></span>
+</div>
+<div>
+    Error:
+    <pre data-bind="text: JSON.stringify(lastError())"></pre>
+</div>

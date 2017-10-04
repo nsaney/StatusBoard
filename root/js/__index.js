@@ -2,8 +2,19 @@ $(function () {
     "use strict";
     
     ////// View Model //////
-    __sb.vm = {};
-    __sb.vm.screens = ko.observableArray([]);
+    var self = __sb.vm = {};
+    self.screens = ko.observableArray([]);
+    self.currentScreen = ko.observable(null);
+    self.setActive = function setActive(s) {
+        return function setActiveScreen() {
+            self.currentScreen(s);
+        };
+    };
+    self.isActive = function isActive(s) {
+        return ko.computed(function screenIsActive() {
+            return self.currentScreen() === s;
+        });
+    };
     
     ////// Functions //////
     __sb.fn.__addScreen = function __addScreen(name, initFn) {
@@ -21,11 +32,15 @@ $(function () {
         });
         initFn.call(screen);
         
-        __sb.vm.screens.push(screen);
+        self.screens.push(screen);
+        if (self.screens().length == 1) {
+            self.currentScreen(screen);
+        }
+        
         screen.start();
     };
     __sb.fn.__loadAllScreens();
     
     ////// Apply Bindings //////
-    ko.applyBindings(__sb.vm);
+    ko.applyBindings(self);
 });
