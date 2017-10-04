@@ -21,11 +21,29 @@
         self.lastSuccessTimestamp = ko.observable(null);
         self.lastError = ko.observable(null);
         self.lastErrorTimestamp = ko.observable(null);
+        self.lastUpdateTooltip = ko.computed(function lastUpdateTooltip() {
+            var lastUpdate = self.lastUpdateTimestamp();
+            if (!lastUpdate) { return null; }
+            var tooltip = lastUpdate.format(__sb.config.momentLongFormat);
+            return tooltip;
+        });
         self.nextUpdateTimestamp = ko.computed(function nextUpdate() {
             var lastUpdate = self.lastUpdateTimestamp();
             if (!lastUpdate) { return null; }
-            var nextUpdate = lastUpdate.add(self.UPDATE_MS, 'ms');
+            var nextUpdate = lastUpdate.clone().add(self.UPDATE_MS, 'ms');
             return nextUpdate;
+        });
+        self.nextUpdateTooltip = ko.computed(function nextUpdateTooltip() {
+            var nextUpdate = self.nextUpdateTimestamp();
+            if (!nextUpdate) { return null; }
+            var tooltip = nextUpdate.format(__sb.config.momentLongFormat);
+            return tooltip;
+        });
+        self.timeFromLastUpdate = ko.computed(function timeFromLastUpdate() {
+            var lastUpdate = self.lastUpdateTimestamp();
+            if (!lastUpdate) { return 'Unknown.'; }
+            var rootNow = self.root.now();
+            return rootNow.to(lastUpdate);
         });
         self.timeToNextUpdate = ko.computed(function timeToNextUpdate() {
             var nextUpdate = self.nextUpdateTimestamp();
@@ -95,6 +113,7 @@
         function promise_always() {
             self.isUpdating(false);
             self.lastUpdateTimestamp(moment());
+            self.root.updateNow();
             window.clearTimeout(self.__timeoutId);
             if ((typeof self.UPDATE_MS === 'number') && self.UPDATE_MS >= 5000) {
                 self.__timeoutId = window.setTimeout(

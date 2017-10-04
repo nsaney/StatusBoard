@@ -35,12 +35,12 @@
                 </div>
             </div>
             <div>
-                Last Success Timestamp:
-                <span data-bind="text: lastSuccessTimestamp"></span>
+                Last Update:
+                <span data-bind="text: timeFromLastUpdate, attr: { title: lastUpdateTooltip }"></span>
             </div>
             <div>
                 Next Update:
-                <span data-bind="text: timeToNextUpdate"></span>
+                <span data-bind="text: timeToNextUpdate, attr: { title: nextUpdateTooltip }"></span>
             </div>
             <div style="display: none;" data-bind="visible: isUpdating">
                 <div class="text-center">
