@@ -3,20 +3,36 @@
     
     ////// Constructor //////
     __sb.Screen = Screen;
-    function Screen(initFields) {
+    function Screen(root, initFields) {
         var self = this;
+        self.root = root;
         initFields = initFields || {};
         self.NAME = initFields.name || 'Unknown';
         self.TEMPLATE_NAME = __sb.fn.getTemplateName(self.NAME);
         self.UPDATE_MS = (initFields.updateSeconds || -1) * 1000;
+        self.COLOR_1 = initFields.color1 || 'auto';
+        self.COLOR_2 = initFields.color2 || 'auto';
         self.REQUIRED = initFields.required || false;
         self.__isStarted = false;
         self.__timeoutId = -1;
         self.isUpdating = ko.observable(false);
+        self.lastUpdateTimestamp = ko.observable(null);
         self.data = ko.observable(null);
         self.lastSuccessTimestamp = ko.observable(null);
-        self.lastErrorTimestamp = ko.observable(null);
         self.lastError = ko.observable(null);
+        self.lastErrorTimestamp = ko.observable(null);
+        self.nextUpdateTimestamp = ko.computed(function nextUpdate() {
+            var lastUpdate = self.lastUpdateTimestamp();
+            if (!lastUpdate) { return null; }
+            var nextUpdate = lastUpdate.add(self.UPDATE_MS, 'ms');
+            return nextUpdate;
+        });
+        self.timeToNextUpdate = ko.computed(function timeToNextUpdate() {
+            var nextUpdate = self.nextUpdateTimestamp();
+            if (!nextUpdate) { return 'Unknown.'; }
+            var rootNow = self.root.now();
+            return rootNow.to(nextUpdate);
+        });
     };
     
     ////// Abstract Methods //////
@@ -78,6 +94,7 @@
         promise.always(promise_always);
         function promise_always() {
             self.isUpdating(false);
+            self.lastUpdateTimestamp(moment());
             window.clearTimeout(self.__timeoutId);
             if ((typeof self.UPDATE_MS === 'number') && self.UPDATE_MS >= 5000) {
                 self.__timeoutId = window.setTimeout(

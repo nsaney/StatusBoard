@@ -9,16 +9,55 @@
     <script src="js/__config.js"></script>
     <script src="js/__boot.js"></script>
 </head>
-<body class="container-fluid">
-    <ul class="nav nav-tabs" data-bind="foreach: screens">
-        <li role="presentation" data-bind="css: {'active': $parent.isActive($data)}">
-            <a href="#" data-bind="click: $parent.setActive($data)">
-                <span data-bind="text: NAME"></span>
-            </a>
-        </li>
-    </ul>
-    <div data-bind="with: currentScreen">
-        <div data-bind="template: TEMPLATE_NAME, data: $data"></div>
+<body>
+    <div class="container-fluid">
+        <ul class="nav nav-tabs" data-bind="foreach: screens">
+            <li role="presentation" data-bind="css: {'active': $parent.isActive($data)}">
+                <a href="#" data-bind="click: $parent.setActive($data), style: { color: COLOR_1, backgroundColor: COLOR_2 }">
+                    <span data-bind="text: NAME"></span>
+                    <sup data-bind="visible: !REQUIRED">-</sup>
+                </a>
+            </li>
+        </ul>
+        <div data-bind="with: currentScreen">
+            <div style="display: none;" data-bind="visible: lastError">
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    An error has occurred!
+                    <div>
+                        <b>Time</b>
+                        <span data-bind="text: lastErrorTimestamp"></span>
+                    </div>
+                    <div>
+                        <b>Content</b>
+                        <span data-bind="text: JSON.stringify(lastError())"></span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                Last Success Timestamp:
+                <span data-bind="text: lastSuccessTimestamp"></span>
+            </div>
+            <div>
+                Next Update:
+                <span data-bind="text: timeToNextUpdate"></span>
+            </div>
+            <div style="display: none;" data-bind="visible: isUpdating">
+                <div class="text-center">
+                    UDPATING
+                </div>
+            </div>
+            <div style="display: none;" data-bind="visible: !isUpdating()">
+                <div data-bind="template: TEMPLATE_NAME, data: $data"></div>
+            </div>
+        </div>
     </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center text-muted">
+                der Aktualisierungsstand
+            </p>
+        </div>
+    </footer>
 </body>
 </html>

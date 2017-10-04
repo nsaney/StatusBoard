@@ -1,5 +1,6 @@
 __sb.config = {
-    isProd: true,
+    isProd: false,
+    tickSeconds: 5,
     latitude: +33.7490,
     longitude: -84.3880
 };
@@ -9,6 +10,7 @@ __sb.resources = {
         // name[, dev]
         ['bootstrap', 'min'],
         ['bootstrap-theme', 'min'],
+        'sticky-footer',
         '__index'
     ],
     js: [
@@ -23,7 +25,7 @@ __sb.resources = {
 };
 
 __sb.screens = [
-    // name, updateSeconds, required
-    ['solar',   60*60,  true],
-    ['weather', 10*60, false]
+    // name, updateSeconds, color1, color2, required
+    ['solar',   60*60, 'black', 'magenta',  true],
+    ['weather', 10*60, 'white',   'green', false]
 ];

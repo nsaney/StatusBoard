@@ -15,6 +15,12 @@ $(function () {
             return self.currentScreen() === s;
         });
     };
+    self.now = ko.observable(moment());
+    self.updateNow = function updateNow() {
+        self.now(moment());
+    };
+    setInterval(self.updateNow, __sb.config.tickSeconds * 1000);
+    
     
     ////// Functions //////
     __sb.fn.__addScreen = function __addScreen(name, initFn) {
@@ -25,10 +31,12 @@ $(function () {
             throw new Error('Unknown screen: ' + name);
         }
         
-        var screen = new __sb.Screen({
+        var screen = new __sb.Screen(self, {
             name: name,
-            updateSeconds: (screenItem[1] || -1),
-            required: (screenItem[2] || false)
+            updateSeconds: screenItem[1],
+            color1: screenItem[2],
+            color2: screenItem[3],
+            required: screenItem[4]
         });
         initFn.call(screen);
         
