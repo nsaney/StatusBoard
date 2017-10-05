@@ -3,6 +3,10 @@ $(function () {
     
     ////// View Model //////
     var self = __sb.vm = {};
+    var screensByName = {};
+    self.getScreenByName = function getScreenByName(name) {
+        return screensByName[name] || null;
+    };
     self.screens = ko.observableArray([]);
     self.currentScreen = ko.observable(null);
     self.setActive = function setActive(s) {
@@ -40,8 +44,9 @@ $(function () {
         });
         initFn.call(screen, screen);
         
+        screensByName[name] = screen;
         self.screens.push(screen);
-        if (self.screens().length == 1) {
+        if (!self.currentScreen()) {
             self.currentScreen(screen);
         }
         
