@@ -24,6 +24,9 @@ $(function () {
         self.now(moment());
     };
     setInterval(self.updateNow, __sb.config.tickSeconds * 1000);
+    self.nowFormatted = ko.computed(function nowFormatted() {
+        return self.now().format(__sb.config.momentLongFormat);
+    });
     
     
     ////// Functions //////
