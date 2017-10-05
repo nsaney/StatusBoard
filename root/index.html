@@ -10,7 +10,7 @@
     <script src="js/__boot.js"></script>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="v-fill container-fluid">
         <ul class="nav nav-tabs" data-bind="foreach: screens">
             <li role="presentation" data-bind="css: {'active': $parent.isActive($data)}">
                 <a href="#" data-bind="click: $parent.setActive($data), style: { color: COLOR_1, backgroundColor: COLOR_2 }">
@@ -19,7 +19,7 @@
                 </a>
             </li>
         </ul>
-        <div data-bind="with: currentScreen">
+        <div class="v-fill" data-bind="with: currentScreen">
             <div style="display: none;" data-bind="visible: lastError">
                 <div class="alert alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -30,7 +30,7 @@
                     </div>
                     <div>
                         <b>Content</b>
-                        <span data-bind="text: JSON.stringify(lastError())"></span>
+                        <span data-bind="text: lastErrorMessage"></span>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                     UDPATING
                 </div>
             </div>
-            <div style="display: none;" data-bind="visible: !isUpdating()">
+            <div class="v-fill" style="display: none;" data-bind="visible: !isUpdating()">
                 <div data-bind="template: TEMPLATE_NAME, data: $data"></div>
             </div>
         </div>

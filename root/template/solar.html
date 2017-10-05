@@ -1,4 +1,67 @@
-<div>
-    Data:
-    <pre data-bind="text: JSON.stringify(data())"></pre>
+<div data-bind="with: data">
+    <h2>Sun</h2>
+    <table class="table table-skinny table-striped" data-bind="foreach: sundata">
+        <tr>
+            <th>
+                <span data-bind="text: $parents[1].decodePhenAbbr(phen)"></span>
+            </th>
+            <td>
+                <span data-bind="text: time"></span>
+            </td>
+        </tr>
+    </table>
+    <h2>Moon</h2>
+    <table class="table table-skinny table-striped" data-bind="foreach: moondata">
+        <tr>
+            <th>
+                <span data-bind="text: $parents[1].decodePhenAbbr(phen)"></span>
+            </th>
+            <td>
+                <span data-bind="text: time"></span>
+            </td>
+        </tr>
+    </table>
+    <h2>Next-Moon</h2>
+    <table class="table table-skinny table-striped" data-bind="foreach: $data.nextmoondata || []">
+        <tr>
+            <th>
+                <span data-bind="text: $parents[1].decodePhenAbbr(phen)"></span>
+            </th>
+            <td>
+                <span data-bind="text: time"></span>
+            </td>
+        </tr>
+    </table>
+    <h2>Prev-Moon</h2>
+    <table class="table table-skinny table-striped" data-bind="foreach: $data.prevmoondata || []">
+        <tr>
+            <th>
+                <span data-bind="text: $parents[1].decodePhenAbbr(phen)"></span>
+            </th>
+            <td>
+                <span data-bind="text: time"></span>
+            </td>
+        </tr>
+    </table>
+    <h2>Closest Phase</h2>
+    <table class="table table-skinny table-striped" data-bind="with: closestphase">
+        <tr>
+            <th>Phase</th>
+            <td>
+                <span data-bind="text: phase"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td>
+                <span data-bind="text: date"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>Time</th>
+            <td>
+                <span data-bind="text: time"></span>
+            </td>
+        </tr>
+    </table>
 </div>

@@ -21,6 +21,11 @@
         self.lastSuccessTimestamp = ko.observable(null);
         self.lastError = ko.observable(null);
         self.lastErrorTimestamp = ko.observable(null);
+        self.lastErrorMessage = ko.computed(function lastErrorMessage() {
+            var lastError = self.lastError();
+            if (!lastError) { return 'No error.'; }
+            return lastError.msg || lastError.message || JSON.stringify(lastError);
+        });
         self.lastUpdateTooltip = ko.computed(function lastUpdateTooltip() {
             var lastUpdate = self.lastUpdateTimestamp();
             if (!lastUpdate) { return null; }
@@ -136,6 +141,7 @@
         jqXhr.fail(jqXhr_fail);
         function jqXhr_fail(_, __, errorThrown) {
             deferred.reject(errorThrown);
+            console.log(errorThrown);
         }
         return deferred.promise();
     };

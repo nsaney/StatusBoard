@@ -38,7 +38,7 @@ $(function () {
             color2: screenItem[3],
             required: screenItem[4]
         });
-        initFn.call(screen);
+        initFn.call(screen, screen);
         
         self.screens.push(screen);
         if (self.screens().length == 1) {

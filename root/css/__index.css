@@ -1,3 +1,27 @@
+/* Scroll Flex-Box */
+html {
+    height: 100%;
+}
+
+body {
+    height: calc(100% - 60px);
+    display: flex;
+}
+
+.v-fill {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+    overflow-y: auto;
+}
+
+
+/* Miscellaneous */
+
 .nav {
     margin: 10px 0;
+}
+
+.table.table-skinny {
+    width: auto !important;
 }
