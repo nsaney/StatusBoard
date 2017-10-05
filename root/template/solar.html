@@ -1,67 +1,60 @@
 <div data-bind="with: data">
-    <h2>Sun</h2>
-    <table class="table table-skinny table-striped" data-bind="foreach: sundata">
-        <tr>
-            <th>
-                <span data-bind="text: $parents[1].decodePhenAbbr(phen)"></span>
-            </th>
-            <td>
-                <span data-bind="text: time"></span>
-            </td>
-        </tr>
-    </table>
-    <h2>Moon</h2>
-    <table class="table table-skinny table-striped" data-bind="foreach: moondata">
-        <tr>
-            <th>
-                <span data-bind="text: $parents[1].decodePhenAbbr(phen)"></span>
-            </th>
-            <td>
-                <span data-bind="text: time"></span>
-            </td>
-        </tr>
-    </table>
-    <h2>Next-Moon</h2>
-    <table class="table table-skinny table-striped" data-bind="foreach: $data.nextmoondata || []">
-        <tr>
-            <th>
-                <span data-bind="text: $parents[1].decodePhenAbbr(phen)"></span>
-            </th>
-            <td>
-                <span data-bind="text: time"></span>
-            </td>
-        </tr>
-    </table>
-    <h2>Prev-Moon</h2>
-    <table class="table table-skinny table-striped" data-bind="foreach: $data.prevmoondata || []">
-        <tr>
-            <th>
-                <span data-bind="text: $parents[1].decodePhenAbbr(phen)"></span>
-            </th>
-            <td>
-                <span data-bind="text: time"></span>
-            </td>
-        </tr>
-    </table>
-    <h2>Closest Phase</h2>
-    <table class="table table-skinny table-striped" data-bind="with: closestphase">
-        <tr>
-            <th>Phase</th>
-            <td>
-                <span data-bind="text: phase"></span>
-            </td>
-        </tr>
-        <tr>
-            <th>Date</th>
-            <td>
-                <span data-bind="text: date"></span>
-            </td>
-        </tr>
-        <tr>
-            <th>Time</th>
-            <td>
-                <span data-bind="text: time"></span>
-            </td>
-        </tr>
-    </table>
+    <div class="row-fluid">
+        <div class="col-sm-4">
+            <h2>Sun</h2>
+            <table class="table table-skinny" data-bind="foreach: sundata">
+                <tr>
+                    <th>
+                        <span data-bind="text: $parents[1].decodePhenAbbr(phen)"></span>
+                    </th>
+                    <td>
+                        <span data-bind="text: time"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <h2>Moon</h2>
+            <table class="table table-skinny" data-bind="foreach: allmoondata">
+                <tbody data-bind="foreach: value">
+                    <tr>
+                        <th>
+                            <span data-bind="text: $parents[2].decodePhenAbbr(phen)"></span>
+                        </th>
+                        <td>
+                            <span data-bind="text: time"></span>
+                        </td>
+                        <td>
+                            <span data-bind="text: $parent.prefix"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <h2>Closest Phase</h2>
+            <table class="table table-skinny" data-bind="with: closestphase">
+                <tr>
+                    <th>Phase</th>
+                    <td>
+                        <span data-bind="text: phase"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>
+                        <span data-bind="text: date"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Time</th>
+                    <td>
+                        <span data-bind="text: time"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-3">
+        </div>
+    </div>
 </div>

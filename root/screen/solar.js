@@ -21,17 +21,29 @@ __sb.fn.__addScreen('solar', function solar(self) {
         };
     };
     
+    self.parseRawData = function parseRawData(data) {
+        data.allmoondata = ['prev', '', 'next'].map(function processMoonPrefix(prefix) {
+            var key = prefix + 'moondata';
+            var value = data[key] || [];
+            return {
+                prefix: prefix,
+                value: value
+            };
+        });
+        return data;
+    };
+    
     var phenomenonAbbreviations = {
-        'BC': 'Begin civil twilight',
+        'BC': 'First Light',
         'R': 'Rise',
-        'U': 'Upper Transit',
+        'U': 'Highest Point',
         'S': 'Set',
-        'EC': 'End civil twilight',
-        'L': 'Lower Transit (above the horizon)',
-        '**': 'object continuously above the horizon',
-        '--': 'object continuously below the horizon',
-        '^^': 'object continuously above the twilight limit',
-        '~~': 'object continuously below the twilight limit'
+        'EC': 'Last Light',
+        'L': 'Lowest Point',
+        '**': 'always above horizon',
+        '--': 'always below horizon',
+        '^^': 'always above twilight',
+        '~~': 'always below twilight'
     };
     self.decodePhenAbbr = function decodePhenAbbr(abbr) {
         return phenomenonAbbreviations[abbr] || '(Unknown)';

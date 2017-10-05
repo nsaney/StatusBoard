@@ -25,3 +25,7 @@ body {
 .table.table-skinny {
     width: auto !important;
 }
+
+.template-wrapper {
+    border: 2px inset gray;
+}
