@@ -29,5 +29,6 @@ __sb.screens = [
     // name, updateSeconds, color1, color2, required
     ['solar',   60*60, 'black', 'yellow',  true],
     ['lunar',   60*60, 'white',   'gray',  true],
-    ['weather', 10*60, 'white',   'blue', false]
+    ['wotd',    60*60, 'black', 'orange',  true],
+    //['weather', 10*60, 'white',   'blue', false]
 ];
