@@ -5,9 +5,15 @@
     <meta http-equiv="encoding" content="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Status Board</title>
-    <script>__sb = {};</script>
-    <script src="js/__config.js"></script>
-    <script src="js/__boot.js"></script>
+    <script>
+        __sb = {};
+        ['config', 'boot'].forEach(function initScript(name) {
+            var now = (new Date()).valueOf()
+            var script = document.createElement('script');
+            script.src = 'js/__' + name + '.js?_=' + now;
+            document.head.appendChild(script);
+        });
+    </script>
 </head>
 <body>
     <div class="v-fill container-fluid">

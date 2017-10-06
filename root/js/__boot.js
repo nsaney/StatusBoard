@@ -56,18 +56,20 @@
     }
     
     function loadStyleSheet(name, fullFileName) {
+        var now = (new Date()).valueOf();
         var link = document.createElement('link');
         link.id = name;
         link.rel = 'stylesheet';
-        link.href = fullFileName;
+        link.href = fullFileName + '?_=' + now;
         document.head.appendChild(link);
         return link;
     }
     
     function loadScript(name, fullFileName) {
+        var now = (new Date()).valueOf();
         var script = document.createElement('script');
         script.id = name;
-        script.src = fullFileName;
+        script.src = fullFileName + '?_=' + now;
         document.head.appendChild(script);
         return script;
     }
