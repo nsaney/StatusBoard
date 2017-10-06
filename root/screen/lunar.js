@@ -3,13 +3,23 @@ __sb.fn.__addScreen('lunar', function lunar(self) {
     
     var solar = self.root.getScreenByName('solar');
     self.getAjaxSettings = function getAjaxSettings() {
-        return __sb.Screen.SPOOF_IN_PARSE_RAW_DATA;
+        var date = 'today';
+        var numPhases = 4;
+        return {
+            method: 'GET',
+            url: 'http://api.usno.navy.mil/moon/phase',
+            data: {
+                date: date,
+                nump: numPhases
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+            }
+        };
     };
     self.parseRawData = function parseRawData(data) {
-        data = {};
-        data.fromSolar = ko.computed(function fromSolar() {
-            return solar.data();
-        });
+        data.fromSolar = solar.data;
         return data;
     };
     self.decodePhenAbbr = solar.decodePhenAbbr;

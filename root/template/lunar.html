@@ -1,10 +1,7 @@
 <div data-bind="with: data">
     <div class="row-fluid">
-        <div class="col-sm-4">
-            <span>?</span>
-        </div>
-        <div class="col-sm-4" data-bind="with: fromSolar">
-            <h2>Events</h2>
+        <div class="col-sm-6" data-bind="with: fromSolar">
+            <h2>Daily</h2>
             <table class="table table-skinny" data-bind="foreach: allmoondata">
                 <tbody data-bind="foreach: value">
                     <tr>
@@ -21,27 +18,23 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-sm-4" data-bind="with: fromSolar">
-            <h2>Closest Phase</h2>
-            <table class="table table-skinny" data-bind="with: closestphase">
-                <tr>
-                    <th>Phase</th>
-                    <td>
-                        <span data-bind="text: phase"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Date</th>
-                    <td>
-                        <span data-bind="text: date"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Time</th>
-                    <td>
-                        <span data-bind="text: time"></span>
-                    </td>
-                </tr>
+        <div class="col-sm-6">
+            <h2>Next Phases</h2>
+            <table class="table table-skinny">
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: phasedata">
+                    <tr>
+                        <td><span data-bind="text: phase"></span></td>
+                        <td><span data-bind="text: date"></span></td>
+                        <td><span data-bind="text: time"></span></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
