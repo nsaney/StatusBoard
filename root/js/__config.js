@@ -8,18 +8,18 @@ __sb.config = {
 
 __sb.resources = {
     css: [
-        // name[, dev]
+        // name[, prod[, dev]]
         ['bootstrap', 'min'],
         ['bootstrap-theme', 'min'],
         'sticky-footer',
         '__index'
     ],
     js: [
-        // name[, dev]
+        // name[, prod[, dev]]
         ['moment', 'min'],
         ['jquery-3.2.1', 'min'],
         ['bootstrap', 'min'],
-        ['knockout-3.4.2', 'debug'],
+        ['knockout-3.4.2', null, 'debug'],
         '__screen',
         '__index'
     ]

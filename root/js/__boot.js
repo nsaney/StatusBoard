@@ -105,10 +105,15 @@
         else if (typeof resourceItem === 'string') {
             resourceName = resourceItem;
         }
-        else if ((typeof resourceItem[0] === 'string') && (typeof resourceItem[1] === 'string')) {
+        else if (Array.isArray(resourceItem)) {
             resourceName = resourceItem[0];
-            if (__sb.config.isProd) {
-                resourceName += '.' + resourceItem[1];
+            var prodSuffix = resourceItem[1];
+            var devSuffix = resourceItem[2];
+            if (__sb.config.isProd && prodSuffix) {
+                resourceName += '.' + prodSuffix;
+            }
+            else if (!__sb.config.isProd && devSuffix) {
+                resourceName += '.' + devSuffix;
             }
         }
         else {
