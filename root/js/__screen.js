@@ -16,6 +16,7 @@
         self.__isStarted = false;
         self.__timeoutId = -1;
         self.isUpdating = ko.observable(false);
+        self.updateProgress = ko.observable(null);
         self.lastUpdateTimestamp = ko.observable(null);
         self.data = ko.observable(null);
         self.lastSuccessTimestamp = ko.observable(null);
@@ -24,7 +25,7 @@
         self.lastErrorMessage = ko.computed(function lastErrorMessage() {
             var lastError = self.lastError();
             if (!lastError) { return 'No error.'; }
-            return lastError.msg || lastError.message || JSON.stringify(lastError);
+            return lastError.msg || lastError.message || (typeof lastError === 'string' ? lastError : JSON.stringify(lastError));
         });
         self.lastUpdateTooltip = ko.computed(function lastUpdateTooltip() {
             var lastUpdate = self.lastUpdateTimestamp();
@@ -93,6 +94,16 @@
             promise = Screen.callAjax(ajaxSettings);
         }
         
+        promise.progress(promise_progress);
+        function promise_progress(progressData) {
+            try {
+                self.updateProgress(progressData);
+            }
+            catch (ex) {
+                console.log('Progress Error: ', ex);
+            }
+        }
+        
         promise.done(promise_done);
         function promise_done(rawData) {
             try {
@@ -117,6 +128,7 @@
         promise.always(promise_always);
         function promise_always() {
             self.isUpdating(false);
+            self.updateProgress(null);
             self.lastUpdateTimestamp(moment());
             self.root.updateNow();
             window.clearTimeout(self.__timeoutId);
@@ -144,6 +156,18 @@
             console.log(errorThrown);
         }
         return deferred.promise();
+    };
+    
+    Screen.PROXY_URL = '/proxy/';
+    Screen.proxyAjaxSettings = function proxyAjaxSettings(ajaxSettings) {
+        ajaxSettings.data = {
+            method: ajaxSettings.method,
+            url: ajaxSettings.url,
+            jsonData: JSON.stringify(ajaxSettings.data || {})
+        };
+        ajaxSettings.method = 'POST';
+        ajaxSettings.url = Screen.PROXY_URL;
+        return ajaxSettings;
     };
     
     Screen.SPOOF_IN_PARSE_RAW_DATA = -1;

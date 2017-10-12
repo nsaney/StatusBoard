@@ -16,7 +16,7 @@ body {
 }
 
 
-/* Miscellaneous */
+/* Nav Bar */
 
 .nav {
     margin: 10px 0;
@@ -31,6 +31,13 @@ body {
 }
 .nav > li.active > a {
     padding-bottom: 15px;
+}
+
+
+/* Miscellaneous */
+
+.text-pre-wrap {
+    white-space: pre-wrap;
 }
 
 .table.table-skinny {

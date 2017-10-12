@@ -36,7 +36,7 @@
                     </div>
                     <div>
                         <b>Content</b>
-                        <span data-bind="text: lastErrorMessage"></span>
+                        <span class="text-pre-wrap" data-bind="text: lastErrorMessage"></span>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,15 @@
             </div>
             <div style="display: none;" data-bind="visible: isUpdating">
                 <div class="text-center">
-                    UDPATING
+                    <img src="img/spinner.gif"/>
+                </div>
+                <div data-bind="with: updateProgress">
+                    <div data-bind="if: lengthComputable">
+                        <span data-bind="text: (loaded/total)*100"></span>%
+                    </div>
+                    <div data-bind="ifnot: lengthComputable">
+                        (progress unknown)
+                    </div>
                 </div>
             </div>
             <div class="v-fill template-wrapper" style="display: none;" data-bind="visible: !isUpdating()">
