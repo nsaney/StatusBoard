@@ -9,16 +9,6 @@ $(function () {
     };
     self.screens = ko.observableArray([]);
     self.currentScreen = ko.observable(null);
-    self.setActive = function setActive(s) {
-        return function setActiveScreen() {
-            self.currentScreen(s);
-        };
-    };
-    self.isActive = function isActive(s) {
-        return ko.computed(function screenIsActive() {
-            return self.currentScreen() === s;
-        });
-    };
     self.now = ko.observable(moment());
     self.updateNow = function updateNow() {
         self.now(moment());
@@ -27,6 +17,7 @@ $(function () {
     self.nowFormatted = ko.computed(function nowFormatted() {
         return self.now().format(__sb.config.momentLongFormat);
     });
+    
     
     
     ////// Functions //////
@@ -56,6 +47,7 @@ $(function () {
         screen.start();
     };
     __sb.fn.__loadAllScreens();
+    
     
     ////// Apply Bindings //////
     ko.applyBindings(self);

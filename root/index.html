@@ -18,8 +18,8 @@
 <body>
     <div class="v-fill container-fluid">
         <ul class="nav nav-tabs" data-bind="foreach: screens">
-            <li role="presentation" data-bind="css: {'active': $parent.isActive($data)}">
-                <a href="#" data-bind="click: $parent.setActive($data), style: { color: COLOR_1, backgroundColor: COLOR_2 }">
+            <li role="presentation" data-bind="css: {'active': isActive }">
+                <a href="#" data-bind="click: setActive, style: { color: COLOR_1, backgroundColor: COLOR_2 }">
                     <span data-bind="text: NAME"></span>
                     <sup data-bind="visible: !REQUIRED">-</sup>
                 </a>

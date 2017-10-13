@@ -6,6 +6,12 @@
     function Screen(root, initFields) {
         var self = this;
         self.root = root;
+        self.setActive = function setActive() {
+            root.currentScreen(self);
+        };
+        self.isActive = ko.computed(function isActive() {
+            return root.currentScreen() === self;
+        });
         initFields = initFields || {};
         self.NAME = initFields.name || 'Unknown';
         self.TEMPLATE_NAME = __sb.fn.getTemplateName(self.NAME);
