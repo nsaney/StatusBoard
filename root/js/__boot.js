@@ -10,10 +10,6 @@
         try { throw new Error('Warning! Unimplemented abstract method!'); }
         catch (ex) { console.log(ex); }
     };
-    __sb.fn.__loadAllScreens = function loadAllScreens() {
-        loadAll(__sb.screens, 'template', 'html', getScreenName, loadTemplate);
-        loadAll(__sb.screens, 'screen', 'js', getScreenName, loadScript);
-    };
     __sb.fn.getTemplateName = function getTemplateName(name) {
         return name + '-template';
     };
@@ -32,16 +28,30 @@
     //// Initialization ////
     loadAll(__sb.resources.css, 'css', 'css', getResourceName, loadStyleSheet);
     loadAll(__sb.resources.js, 'js', 'js', getResourceName, loadScript);
+    __sb.fn.__loadAllScreens = function loadAllScreens() {
+        var allScreensLoaded = $.Deferred();
+        loadAll(__sb.screens, 'template', 'html', getScreenName, loadTemplate, afterTemplates);
+        function afterTemplates() {
+            loadAll(__sb.screens, 'screen', 'js', getScreenName, loadScript, afterScreens);
+        }
+        function afterScreens() {
+            allScreensLoaded.resolve();
+        }
+        return allScreensLoaded.promise();
+    };
     
     
     ////// Helper Functions //////
     
     //// Generic Loaders ////
-    function loadAll(array, folder, extension, nameParser, loader) {
+    function loadAll(array, folder, extension, nameParser, loader, endFn) {
         loadIndividual(0);
         function loadIndividual(i) {
             var item = array && array[i];
-            if (!item) { return; }
+            if (!item) {
+                if (typeof endFn === 'function') { endFn(); }
+                return;
+            }
             var element = loadItem(item, folder, extension, nameParser, loader);
             element.onload = element.onerror = function elementOnLoad() {
                 loadIndividual(i + 1);

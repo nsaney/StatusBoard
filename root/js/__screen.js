@@ -13,6 +13,7 @@
             return root.currentScreen() === self;
         });
         initFields = initFields || {};
+        self.INDEX = initFields.index || 0;
         self.NAME = initFields.name || 'Unknown';
         self.TEMPLATE_NAME = __sb.fn.getTemplateName(self.NAME);
         self.UPDATE_MS = (initFields.updateSeconds || -1) * 1000;

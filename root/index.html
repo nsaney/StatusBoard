@@ -68,12 +68,18 @@
     </div>
     <footer class="footer">
         <div class="container-fluid text-muted">
-            <span class="pull-left">
-                der Aktualisierungsstand
-            </span>
-            <span class="pull-right">
-                <span data-bind="text: nowFormatted"></span>
-            </span>
+            <div class="row">
+                <div class="col-xs-3">
+                    der&nbsp;Aktualisierungsstand
+                </div>
+                <div class="col-xs-6 text-center">
+                    in
+                    <span data-bind="text: secondsToNextTransition, attr: { title: nextTransitionTooltip }"></span>s
+                </div>
+                <div class="col-xs-3 text-right">
+                    <span data-bind="text: nowFormatted"></span>
+                </div>
+            </div>
         </div>
     </footer>
 </body>

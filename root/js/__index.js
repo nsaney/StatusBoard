@@ -3,12 +3,8 @@ $(function () {
     
     ////// View Model //////
     var self = __sb.vm = {};
-    var screensByName = {};
-    self.getScreenByName = function getScreenByName(name) {
-        return screensByName[name] || null;
-    };
-    self.screens = ko.observableArray([]);
-    self.currentScreen = ko.observable(null);
+    
+    //// Current Time ////
     self.now = ko.observable(moment());
     self.updateNow = function updateNow() {
         self.now(moment());
@@ -18,6 +14,26 @@ $(function () {
         return self.now().format(__sb.config.momentLongFormat);
     });
     
+    //// Screens ////
+    var screensByName = {};
+    self.getScreenByName = function getScreenByName(name) {
+        return screensByName[name] || null;
+    };
+    self.screens = ko.observableArray([]);
+    self.currentScreen = ko.observable(null);
+    self.nextTransitionTimestamp = ko.observable(null);
+    self.secondsToNextTransition = ko.computed(function secondsToNextTransition() {
+        var nextTransition = self.nextTransitionTimestamp();
+        if (!nextTransition) { return; }
+        var now = self.now();
+        return nextTransition.diff(now, 's');
+    });
+    self.nextTransitionTooltip = ko.computed(function nextUpdateTooltip() {
+        var nextTransition = self.nextTransitionTimestamp();
+        if (!nextTransition) { return; }
+        var tooltip = nextTransition.format(__sb.config.momentLongFormat);
+        return tooltip;
+    });
     
     
     ////// Functions //////
@@ -30,6 +46,7 @@ $(function () {
         }
         
         var screen = new __sb.Screen(self, {
+            index: self.screens().length,
             name: name,
             updateSeconds: screenItem[1],
             color1: screenItem[2],
@@ -46,7 +63,24 @@ $(function () {
         
         screen.start();
     };
-    __sb.fn.__loadAllScreens();
+    __sb.fn.__loadAllScreens().then(function afterAllScreens() {
+        self.now.subscribe(function screenTransition(now) {
+            var nextTransition = self.nextTransitionTimestamp();
+            if (!nextTransition) { return; }
+            var nextTransitionIsDue = now.isAfter(nextTransition);
+            if (!nextTransitionIsDue) { return; }
+            var currentScreen = self.currentScreen();
+            if (!currentScreen) { return; }
+            var screens = self.screens();
+            var screenCount = screens.length;
+            var nextIndex = (currentScreen.INDEX + 1) % screenCount;
+            var nextScreen = screens[nextIndex];
+            self.nextTransitionTimestamp(nextTransition.add(__sb.config.screenSeconds, 's'));
+            self.currentScreen(nextScreen);
+        });
+        var firstTransition = moment().add(__sb.config.screenSeconds, 's');
+        self.nextTransitionTimestamp(firstTransition);
+    });
     
     
     ////// Apply Bindings //////
