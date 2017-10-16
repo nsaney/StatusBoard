@@ -64,6 +64,7 @@ $(function () {
         screen.start();
     };
     __sb.fn.__loadAllScreens().then(function afterAllScreens() {
+        if (__sb.config.screenSeconds < 5) { return; }
         self.now.subscribe(function screenTransition(now) {
             var nextTransition = self.nextTransitionTimestamp();
             if (!nextTransition) { return; }
@@ -75,7 +76,8 @@ $(function () {
             var screenCount = screens.length;
             var nextIndex = (currentScreen.INDEX + 1) % screenCount;
             var nextScreen = screens[nextIndex];
-            self.nextTransitionTimestamp(nextTransition.add(__sb.config.screenSeconds, 's'));
+            nextTransition.add(__sb.config.screenSeconds, 's');
+            self.nextTransitionTimestamp(moment.max(now, nextTransition));
             self.currentScreen(nextScreen);
         });
         var firstTransition = moment().add(__sb.config.screenSeconds, 's');
