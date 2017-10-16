@@ -64,7 +64,7 @@ body {
 }
 
 .template-wrapper {
-    border: 2px inset gray;
+    border: 2px solid black;
 }
 
 .blurred-background {

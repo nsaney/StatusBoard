@@ -12,7 +12,8 @@ __sb.fn.__addScreen('wotd', function wotd(self) {
         doc.documentElement.innerHTML = rawData;
         var img = doc.querySelectorAll('.wotd-today a[href*="dictionary.com/browse"] img')[0];
         return {
-            imageSrc: img.src
+            imageSrc: img.src,
+            imageSrcUrl: 'url("' + img.src + '")'
         };
     };
 });

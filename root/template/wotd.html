@@ -1,5 +1,7 @@
 <div class="relative vertical-align-box text-center" data-bind="with: data">
-    <div class="blurred-background" data-bind='style: { "backgroundImage": "url(\"" + imageSrc + "\")" }'></div>
+    <div class="blurred-background" 
+         data-bind="style: { 'backgroundImage': imageSrcUrl }"
+    ></div>
     <div>
         <img data-bind="attr: { 'src': imageSrc }"/>
     </div>
