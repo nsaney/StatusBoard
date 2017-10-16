@@ -67,14 +67,24 @@
         </div>
     </div>
     <footer class="footer">
-        <div class="container-fluid text-muted">
+        <div class="container-fluid vertical-align-box text-muted">
             <div class="row">
                 <div class="col-xs-3">
                     der&nbsp;Aktualisierungsstand
                 </div>
                 <div class="col-xs-6 text-center">
-                    in
-                    <span data-bind="text: secondsToNextTransition, attr: { title: nextTransitionTooltip }"></span>s
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            [Prev]
+                        </span>
+                        <span class="form-control">
+                            in
+                            <span data-bind="text: secondsToNextTransition, attr: { title: nextTransitionTooltip }"></span>s
+                        </span>
+                        <span class="input-group-addon">
+                            [Next]
+                        </span>
+                    </div>
                 </div>
                 <div class="col-xs-3 text-right">
                     <span data-bind="text: nowFormatted"></span>
