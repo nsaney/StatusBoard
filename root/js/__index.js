@@ -22,6 +22,10 @@ $(function () {
     self.screens = ko.observableArray([]);
     self.currentScreen = ko.observable(null);
     self.nextTransitionTimestamp = ko.observable(null);
+    self.createNextTransitionTimestamp = function (oldTimestamp) {
+        oldTimestamp = oldTimestamp || moment();
+        return oldTimestamp.add(__sb.config.screenSeconds, 's');
+    }
     self.secondsToNextTransition = ko.computed(function secondsToNextTransition() {
         var nextTransition = self.nextTransitionTimestamp();
         if (!nextTransition) { return; }
@@ -76,11 +80,9 @@ $(function () {
             var screenCount = screens.length;
             var nextIndex = (currentScreen.INDEX + 1) % screenCount;
             var nextScreen = screens[nextIndex];
-            nextTransition.add(__sb.config.screenSeconds, 's');
-            self.nextTransitionTimestamp(moment.max(now, nextTransition));
-            self.currentScreen(nextScreen);
+            nextScreen.setActive(nextScreen, null, nextTransition);
         });
-        var firstTransition = moment().add(__sb.config.screenSeconds, 's');
+        var firstTransition = self.createNextTransitionTimestamp();
         self.nextTransitionTimestamp(firstTransition);
     });
     

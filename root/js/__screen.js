@@ -6,7 +6,10 @@
     function Screen(root, initFields) {
         var self = this;
         self.root = root;
-        self.setActive = function setActive() {
+        self.setActive = function setActive(data, event, oldTimestamp) {
+            var nextTransition = root.createNextTransitionTimestamp(oldTimestamp);
+            nextTransition = moment.max(root.now(), nextTransition);
+            root.nextTransitionTimestamp(nextTransition);
             root.currentScreen(self);
         };
         self.isActive = ko.computed(function isActive() {
