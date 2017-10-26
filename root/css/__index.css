@@ -54,8 +54,8 @@ body {
     padding: 0;
 }
 
-.relative {
-    position: relative;
+.text-small-caps {
+    font-variant: small-caps;
 }
 
 .text-pre-wrap {
@@ -68,6 +68,40 @@ body {
 
 .template-wrapper {
     border: 2px solid black;
+}
+
+/* Positioning Classes */
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.inline {
+    display: inline;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.on-left,
+.on-right {
+    display: block;
+    position: absolute;
+    top: 0;
+}
+
+.on-left {
+    left: 0;
+    transform: translateX(-100%);
+}
+
+.on-right {
+    right: 0;
+    transform: translateX(100%);
 }
 
 .blurred-background {
