@@ -28,6 +28,7 @@ __sb.resources = {
 
 __sb.screens = [
     // name, updateSeconds, color1, color2, required
+    ['time',        0, 'white',  'black',  true],
     ['solar',   60*60, 'black', 'yellow',  true],
     ['lunar',   60*60, 'white',   'gray',  true],
     ['wotd',    60*60, 'black', 'orange',  true],

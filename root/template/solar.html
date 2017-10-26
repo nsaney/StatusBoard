@@ -1,26 +1,17 @@
 <div data-bind="with: data">
-    <div class="text-center" style="height: 33vh; line-height: 1">
-        <div style="font-size: 20vh">
-            <span data-bind="text: $root.now().format('HH:mm')"></span>
-            <span class="text-small-caps">
-                <span data-bind="text: $root.now().format('a')"></span>
-            </span>
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Solar Events</h2>
+            <table class="table table-skinny" data-bind="foreach: sundata">
+                <tr>
+                    <th>
+                        <span data-bind="text: $parents[1].decodePhenAbbr(phen)"></span>
+                    </th>
+                    <td>
+                        <span data-bind="text: time"></span>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <div style="font-size: 10vh">
-            <span data-bind="text: $root.now().format('ddd MMM DD YYYY')"></span>
-        </div>
-    </div>
-    <div class="center">
-        <h2>Daily</h2>
-        <table class="table table-skinny" data-bind="foreach: sundata">
-            <tr>
-                <th>
-                    <span data-bind="text: $parents[1].decodePhenAbbr(phen)"></span>
-                </th>
-                <td>
-                    <span data-bind="text: time"></span>
-                </td>
-            </tr>
-        </table>
     </div>
 </div>
