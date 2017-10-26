@@ -21,6 +21,18 @@ $(function () {
     };
     self.screens = ko.observableArray([]);
     self.currentScreen = ko.observable(null);
+    self.offsetScreenFn = function (offset) {
+        return ko.computed(function offsetScreen() {
+            var currentScreen = self.currentScreen();
+            if (!currentScreen) { return null; }
+            var screens = self.screens();
+            var screenCount = screens.length;
+            var currentOffset = offset;
+            while (currentOffset < 0) { currentOffset += screenCount; }
+            var nextIndex = (currentScreen.INDEX + currentOffset) % screenCount;
+            return screens[nextIndex];
+        });
+    };
     self.nextTransitionTimestamp = ko.observable(null);
     self.createNextTransitionTimestamp = function (oldTimestamp) {
         oldTimestamp = oldTimestamp || moment();
@@ -78,17 +90,14 @@ $(function () {
     };
     __sb.fn.__loadAllScreens().then(function afterAllScreens() {
         if (__sb.config.screenSeconds < 5) { return; }
+        var offsetScreen = self.offsetScreenFn(1);
         self.now.subscribe(function screenTransition(now) {
             var nextTransition = self.nextTransitionTimestamp();
             if (!nextTransition) { return; }
             var nextTransitionIsDue = now.isAfter(nextTransition);
             if (!nextTransitionIsDue) { return; }
-            var currentScreen = self.currentScreen();
-            if (!currentScreen) { return; }
-            var screens = self.screens();
-            var screenCount = screens.length;
-            var nextIndex = (currentScreen.INDEX + 1) % screenCount;
-            var nextScreen = screens[nextIndex];
+            var nextScreen = offsetScreen();
+            if (!nextScreen) { return; }
             nextScreen.setActive(nextScreen, null, nextTransition);
         });
         var firstTransition = self.createNextTransitionTimestamp();
