@@ -77,9 +77,13 @@
                         <span class="input-group-addon">
                             [Prev]
                         </span>
-                        <span class="form-control">
-                            in
-                            <span data-bind="text: secondsToNextTransition, attr: { title: nextTransitionTooltip }"></span>s
+                        <span class="form-control no-padding"
+                              data-bind="attr: { title: nextTransitionTooltip }"
+                        >
+                            <div class="progress-bar progress-bar-success"
+                                 data-bind="style: { width: nextTransitionPercentage }"
+                            >
+                            </div>
                         </span>
                         <span class="input-group-addon">
                             [Next]

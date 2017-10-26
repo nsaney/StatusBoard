@@ -9,7 +9,7 @@ $(function () {
     self.updateNow = function updateNow() {
         self.now(moment());
     };
-    setInterval(self.updateNow, __sb.config.tickSeconds * 1000);
+    setInterval(self.updateNow, __sb.config.tickSeconds * 500);
     self.nowFormatted = ko.computed(function nowFormatted() {
         return self.now().format(__sb.config.momentLongFormat);
     });
@@ -32,11 +32,20 @@ $(function () {
         var now = self.now();
         return nextTransition.diff(now, 's');
     });
+    self.nextTransitionPercent = ko.computed(function nextTransitionPercent() {
+        var secondsToNextTransition = self.secondsToNextTransition();
+        var elapsedPercent = 100 * secondsToNextTransition / __sb.config.screenSeconds;
+        return 100 - elapsedPercent;
+    });
+    self.nextTransitionPercentage = ko.computed(function nextTransitionPercent() {
+        var nextTransitionPercent = self.nextTransitionPercent();
+        return nextTransitionPercent + '%';
+    });
     self.nextTransitionTooltip = ko.computed(function nextUpdateTooltip() {
         var nextTransition = self.nextTransitionTimestamp();
         if (!nextTransition) { return; }
-        var tooltip = nextTransition.format(__sb.config.momentLongFormat);
-        return tooltip;
+        var formattedTime = nextTransition.format(__sb.config.momentLongFormat);
+        return 'Next screen transition at ' + formattedTime;
     });
     
     
