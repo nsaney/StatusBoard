@@ -22,13 +22,16 @@ __sb.fn.__addScreen('solar', function solar(self) {
     };
     
     self.parseRawData = function parseRawData(data) {
-        data.allmoondata = ['prev', '', 'next'].map(function processMoonPrefix(prefix) {
-            var key = prefix + 'moondata';
-            var value = data[key] || [];
-            return {
-                prefix: prefix,
-                value: value
-            };
+        ['sun', 'moon'].map(function processOrb(orb) {
+            var origKey = orb + 'data';
+            data['all' + origKey] = ['prev', '', 'next'].map(function processMoonPrefix(prefix) {
+                var key = prefix + origKey;
+                var value = data[key] || [];
+                return {
+                    prefix: prefix,
+                    value: value
+                };
+            });
         });
         return data;
     };
