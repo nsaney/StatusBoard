@@ -89,7 +89,7 @@
         script.id = __sb.fn.getTemplateName(name);
         script.type = 'text/html';
         document.head.appendChild(script);
-        var result = { onload: __sb.fn.noop, onerror: __sb.fn.noop };
+        var result = { id: script.id, onload: __sb.fn.noop, onerror: __sb.fn.noop };
         $.get({
             url: fullFileName,
             mimeType: 'text/plain',
