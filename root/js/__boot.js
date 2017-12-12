@@ -53,9 +53,23 @@
                 return;
             }
             var element = loadItem(item, folder, extension, nameParser, loader);
-            element.onload = element.onerror = function elementOnLoad() {
-                loadIndividual(i + 1);
-            };
+            element.onload = getEventFn(i, element, elementOnLoad);
+            element.onerror = getEventFn(i, element, elementOnError);
+            function getEventFn(index, element, eventFn) {
+                return function doEvent(e) {
+                    eventFn(element, e);
+                    afterProcessElement(index);
+                };
+            }
+            function elementOnLoad(element) {
+                //console.log('Loaded: ', element);
+            }
+            function elementOnError(element, e) {
+                //console.logError('Error loading: ', element, e);
+            }
+            function afterProcessElement(index) {
+                loadIndividual(index + 1);
+            }
         }
     }
     function loadItem(item, folder, extension, nameParser, loader) {
