@@ -2,6 +2,7 @@
     "use strict";
     
     ////// Main Code //////
+    __sb.bootTime = (new Date()).valueOf();
     
     //// General/Util Functions ////
     __sb.fn = {};
@@ -80,20 +81,18 @@
     }
     
     function loadStyleSheet(name, fullFileName) {
-        var now = (new Date()).valueOf();
         var link = document.createElement('link');
         link.id = name;
         link.rel = 'stylesheet';
-        link.href = fullFileName + '?_=' + now;
+        link.href = fullFileName + '?_=' + __sb.bootTime;
         document.head.appendChild(link);
         return link;
     }
     
     function loadScript(name, fullFileName) {
-        var now = (new Date()).valueOf();
         var script = document.createElement('script');
         script.id = name;
-        script.src = fullFileName + '?_=' + now;
+        script.src = fullFileName + '?_=' + __sb.bootTime;
         document.head.appendChild(script);
         return script;
     }
