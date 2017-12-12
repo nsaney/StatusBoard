@@ -2,6 +2,7 @@
 import sys
 import traceback
 import json
+import socketserver
 import http.server
 import http.client
 import urllib.parse
@@ -14,6 +15,10 @@ NON_FORWARED_HEADERS = [
     'Referer',
     'Host'
 ]
+
+class ThreadingHttpServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
+    pass
+#
 
 class StatusBoardRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_HEAD(self):
@@ -121,7 +126,7 @@ if __isMain__ and __isTest__:
 if __isMain__ and not __isTest__:
     PORT = 8080
     try:
-        Server = http.server.HTTPServer
+        Server = ThreadingHttpServer
         server_address = ('', PORT)
         httpd = Server(server_address, StatusBoardRequestHandler)
         print('Serving on port %s...' % (PORT))
