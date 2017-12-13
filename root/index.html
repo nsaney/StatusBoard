@@ -7,12 +7,20 @@
     <title>Status Board</title>
     <script>
         __sb = {};
-        ['config', 'boot'].forEach(function initScript(name) {
-            var now = (new Date()).valueOf()
-            var script = document.createElement('script');
-            script.src = 'js/__' + name + '.js?_=' + now;
-            document.head.appendChild(script);
-        });
+        (function () {
+            "use strict";
+            function initScript(name) {
+                var now = (new Date()).valueOf()
+                var script = document.createElement('script');
+                script.src = 'js/__' + name + '.js?_=' + now;
+                document.head.appendChild(script);
+                return script;
+            }
+            var config = initScript('config');
+            config.onload = function config_onload() {
+                initScript('boot');
+            };
+        })();
     </script>
 </head>
 <body>
