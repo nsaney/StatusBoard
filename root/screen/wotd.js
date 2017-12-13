@@ -8,7 +8,7 @@ __sb.fn.__addScreen('wotd', function wotd(self) {
         });
     };
     self.parseRawData = function parseRawData(rawData) {
-        var doc = document.implementation.createHTMLDocument("example");
+        var doc = document.implementation.createHTMLDocument("dummy");
         doc.documentElement.innerHTML = rawData;
         var img = doc.querySelectorAll('.wotd-today a[href*="dictionary.com/browse"] img')[0];
         return {

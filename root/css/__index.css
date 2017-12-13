@@ -44,10 +44,28 @@ body {
   vertical-align: middle;
 }
 
+/* Horizontal Alignment */
+.horizontal-center-box {
+    width: 100%;
+    text-align: center;
+}
+
+.horizontal-center-box > * {
+    display: inline-block;
+    text-align: initial;
+}
 
 /* Miscellaneous */
 .width-100 {
     width: 100%;
+}
+
+.font-size-150 {
+    font-size: 150%;
+}
+
+.font-size-200 {
+    font-size: 200%;
 }
 
 .no-padding {
