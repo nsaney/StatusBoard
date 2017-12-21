@@ -24,7 +24,7 @@
     </script>
 </head>
 <body>
-    <div class="v-fill container-fluid">
+    <div class="v-fill-auto-box container-fluid">
         <ul class="nav nav-tabs" data-bind="foreach: screens">
             <li role="presentation" data-bind="css: {'active': isActive }">
                 <a href="#" data-bind="click: setActive, style: { color: COLOR_1, backgroundColor: COLOR_2 }">
@@ -33,7 +33,7 @@
                 </a>
             </li>
         </ul>
-        <div class="v-fill" data-bind="with: currentScreen">
+        <div class="v-fill-auto-box" data-bind="with: currentScreen">
             <div style="display: none;" data-bind="visible: lastError">
                 <div class="alert alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -49,8 +49,11 @@
                 </div>
             </div>
             <div>
-                Last Update:
-                <span data-bind="text: timeFromLastUpdate, attr: { title: lastUpdateTooltip }"></span>
+                &nbsp;
+                <div class="pull-left">
+                    Last Update:
+                    <span data-bind="text: timeFromLastUpdate, attr: { title: lastUpdateTooltip }"></span>
+                </div>
                 <div class="pull-right">
                     Next Update:
                     <span data-bind="text: timeToNextUpdate, attr: { title: nextUpdateTooltip }"></span>
@@ -69,8 +72,24 @@
                     </div>
                 </div>
             </div>
-            <div class="v-fill template-wrapper" style="display: none;" data-bind="visible: !isUpdating()">
-                <div class="v-fill" data-bind="template: TEMPLATE_NAME, data: $data"></div>
+            <div class="h-fill-auto-box">
+                <div class="btn btn-info prev-button" data-bind="click: root.setPrevScreenActive">
+                    <div class="vertical-center-box">
+                        <div class="font-size-200">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-fill-auto-box template-wrapper" style="display: none;" data-bind="visible: !isUpdating()">
+                    <div class="v-fill-auto-box" data-bind="template: TEMPLATE_NAME, data: $data"></div>
+                </div>
+                <div class="btn btn-info next-button" data-bind="click: root.setNextScreenActive">
+                    <div class="vertical-center-box">
+                        <div class="font-size-200">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

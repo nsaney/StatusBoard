@@ -8,11 +8,24 @@ body {
     display: flex;
 }
 
-.v-fill {
-    display: flex;
+.v-fill-box,
+.v-fill-auto-box {
+    display: inline-flex;
     flex-direction: column;
-    flex: auto;
     overflow-y: auto;
+}
+
+.h-fill-box,
+.h-fill-auto-box {
+    display: inline-flex;
+    flex-direction: row;
+    overflow-x: auto;
+}
+
+.flex-auto,
+.v-fill-auto-box,
+.h-fill-auto-box {
+    flex: auto;
 }
 
 
@@ -31,6 +44,29 @@ body {
 .nav > li.active > a {
     padding-bottom: 15px;
 }
+
+/* Prev/Next Side Buttons */
+.prev-button,
+.next-button {
+    display: inline-block;
+    padding: 5px;
+    min-width: 4%;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.prev-button {
+    border-top-right-radius: 0;
+    border-right: 0 none;
+    border-bottom-right-radius: 0;
+}
+
+.next-button {
+    border-top-left-radius: 0;
+    border-left: 0 none;
+    border-bottom-left-radius: 0;
+}
+
 
 /* Vertical Alignment */
 .vertical-center-box {

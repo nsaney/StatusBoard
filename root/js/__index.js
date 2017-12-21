@@ -33,8 +33,19 @@ $(function () {
             return screens[nextIndex];
         });
     };
+    self.setScreenActiveFn = function setScreenActiveFn(screenKo) {
+        return function setScreenActive(data, event) {
+            var screen = ko.unwrap(screenKo);
+            if (!screen) { return; }
+            screen.setActive(data, event);
+        };
+    };
+    self.prevScreen = self.offsetScreenFn(-1);
+    self.setPrevScreenActive = self.setScreenActiveFn(self.prevScreen);
+    self.nextScreen = self.offsetScreenFn(+1);
+    self.setNextScreenActive = self.setScreenActiveFn(self.nextScreen);
     self.nextTransitionTimestamp = ko.observable(null);
-    self.createNextTransitionTimestamp = function (oldTimestamp) {
+    self.createNextTransitionTimestamp = function createNextTransitionTimestamp(oldTimestamp) {
         oldTimestamp = oldTimestamp || moment();
         return oldTimestamp.add(__sb.config.screenSeconds, 's');
     }
@@ -90,13 +101,12 @@ $(function () {
     };
     __sb.fn.__loadAllScreens().then(function afterAllScreens() {
         if (__sb.config.screenSeconds < 5) { return; }
-        var offsetScreen = self.offsetScreenFn(1);
         self.now.subscribe(function screenTransition(now) {
             var nextTransition = self.nextTransitionTimestamp();
             if (!nextTransition) { return; }
             var nextTransitionIsDue = now.isAfter(nextTransition);
             if (!nextTransitionIsDue) { return; }
-            var nextScreen = offsetScreen();
+            var nextScreen = self.nextScreen();
             if (!nextScreen) { return; }
             nextScreen.setActive(nextScreen, null, nextTransition);
         });
