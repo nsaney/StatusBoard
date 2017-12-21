@@ -94,17 +94,19 @@
         </div>
     </div>
     <footer class="footer">
-        <div class="container-fluid vertical-align-box text-muted">
-            <div class="row">
-                <div class="col-xs-4">
-                    der&nbsp;Aktualisierungsstand
-                </div>
-                <div class="col-xs-4 text-center" data-bind="attr: { title: nextTransitionTooltip }">
-                    (next screen in
-                    <span data-bind="text: secondsToNextTransition"></span>s)
-                </div>
-                <div class="col-xs-4 text-right">
-                    <span data-bind="text: nowFormatted"></span>
+        <div class="container-fluid vertical-center-box text-muted">
+            <div>
+                <div class="h-fill-box width-100 text-center">
+                    <div class="inline-block">
+                        der&nbsp;Aktualisierungsstand
+                    </div>
+                    <div class="flex-auto" data-bind="attr: { title: nextTransitionTooltip }">
+                        (next screen in
+                        <span data-bind="text: secondsToNextTransition"></span>s)
+                    </div>
+                    <div class="inline-block">
+                        <span data-bind="text: nowFormatted"></span>
+                    </div>
                 </div>
             </div>
         </div>
