@@ -1,6 +1,7 @@
 package chairosoft.statusboard;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -38,7 +39,7 @@ public class StatusBoardMain {
     ////// Constants //////
     public static final int PORT = 8080;
     public static final String DEFAULT_TEST_URL_STRING = "http://www.something.com/";
-    public static final String RESOURCE_DIRECTORY_ROOT = "./root";
+    public static final String RESOURCE_DIRECTORY_ROOT = System.getProperty("chairosoft.resource.directory.root", "./root");
     public static final String PROXY_PATH_PREFIX = "/proxy/";
     public static final List<String> NON_FORWARDED_HEADERS = Arrays.asList(
         "Content-Type",
@@ -62,8 +63,11 @@ public class StatusBoardMain {
             System.out.println("response time ms = " + (endMs - startMs));
         }
         else {
+            File rootFile = new File(RESOURCE_DIRECTORY_ROOT);
+            String rootPath = rootFile.getCanonicalPath();
             StatusBoardServer server = new StatusBoardServer(PORT);
             System.out.println("Serving on port " + PORT + "...");
+            System.out.println("Serving resources from " + rootPath);
             server.start();
             server.join();
         }
