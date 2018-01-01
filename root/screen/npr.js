@@ -18,7 +18,8 @@ __sb.fn.__addScreen('npr', function npr(self) {
         $.each(anchors, function (i, anchor) {
             var oldAnchorHref = anchor.href;
             if (!/:\/\//.test(oldAnchorHref)) {
-                anchor.href = 'https://text.npr.org/' + oldAnchorHref;
+                var connector = oldAnchorHref[0] === '/' ? '' : '/';
+                anchor.href = 'https://text.npr.org' + connector + oldAnchorHref;
             }
             anchor.target = 'npr';
         });
