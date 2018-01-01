@@ -1,8 +1,8 @@
-<div class="relative width-100 height-100" data-bind="with: data">
+<div class="responsive-fill-box" data-bind="with: data">
     <div class="blurred-background" 
          data-bind="style: { 'backgroundImage': imageSrcUrl }"
     ></div>
-    <div>
-        <img class="centralized" data-bind="attr: { 'src': imageSrc }"/>
+    <div class="responsive-fill-box">
+        <img data-bind="attr: { 'src': imageSrc }"/>
     </div>
 </div>

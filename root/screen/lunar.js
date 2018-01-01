@@ -22,5 +22,5 @@ __sb.fn.__addScreen('lunar', function lunar(self) {
         data.fromSolar = solar.data;
         return data;
     };
-    self.decodePhenAbbr = solar.decodePhenAbbr;
+    self.getPhenInfoByAbbr = solar.getPhenInfoByAbbr;
 });

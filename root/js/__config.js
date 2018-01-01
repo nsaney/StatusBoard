@@ -3,6 +3,7 @@ __sb.config = {
     tickSeconds: 1,
     screenSeconds: 15,
     momentLongFormat: 'dddd, MMMM Do YYYY, h:mm:ss a',
+    momentShortTimeFormat: 'HH:mm:ss',
     latitude: +33.7490,
     longitude: -84.3880
 };

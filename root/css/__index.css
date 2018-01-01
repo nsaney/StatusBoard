@@ -110,8 +110,14 @@ body {
     text-align: initial;
 }
 
-/* Central Alignment */
-.centralized {
+/* Responsive Fill */
+.responsive-fill-box {
+    display: block;
+    position: relative;
+    height: 100%;
+}
+
+.responsive-fill-box > img:first-child {
     display: block;
     position: absolute;
     top: 50%;
@@ -131,6 +137,14 @@ body {
     height: 100%;
 }
 
+.font-size-75 {
+    font-size: 75%;
+}
+
+.font-size-125 {
+    font-size: 125%;
+}
+
 .font-size-150 {
     font-size: 150%;
 }
@@ -145,6 +159,10 @@ body {
 
 .text-small-caps {
     font-variant: small-caps;
+}
+
+.text-monospace {
+    font-family: monospace;
 }
 
 .text-pre-wrap {
