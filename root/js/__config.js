@@ -13,7 +13,6 @@ __sb.resources = {
         // name[, prod[, dev]]
         ['bootstrap', 'min'],
         ['bootstrap-theme', 'min'],
-        'sticky-footer',
         '__index'
     ],
     js: [

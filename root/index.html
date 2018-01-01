@@ -27,14 +27,14 @@
     <div class="v-fill-auto-box container-fluid">
         <ul class="nav nav-tabs" data-bind="foreach: screens">
             <li role="presentation" data-bind="css: {'active': isActive }, style: { backgroundColor: COLOR_2 }">
-                <a href="#" data-bind="click: setActive, style: { color: COLOR_1}">
+                <a href="#" data-bind="click: setActive, style: { color: COLOR_1 }">
                     <b class="text-small-caps" data-bind="text: NAME"></b>
                     <sup data-bind="visible: !REQUIRED">-</sup>
                 </a>
             </li>
         </ul>
         <!-- ko with: currentScreen -->
-        <div class="v-fill-auto-box" data-bind="style: { backgroundColor: COLOR_2 }">
+        <div class="v-fill-auto-box">
             <div style="display: none;" data-bind="visible: lastError">
                 <div class="alert alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -49,15 +49,15 @@
                     </div>
                 </div>
             </div>
-            <div class="status-bar" data-bind="style: { color: COLOR_1 }">
+            <div class="status-bar" data-bind="style: { color: COLOR_1, backgroundColor: COLOR_2 }">
                 &nbsp;
                 <div class="pull-left">
                     Last Update:
-                    <span data-bind="text: timeFromLastUpdate, attr: { title: lastUpdateTooltip }"></span>
+                    <span data-bind="text: timeFromLastUpdate"></span>
                 </div>
                 <div class="pull-right">
                     Next Update:
-                    <span data-bind="text: timeToNextUpdate, attr: { title: nextUpdateTooltip }"></span>
+                    <span data-bind="text: timeToNextUpdate"></span>
                 </div>
             </div>
             <div style="display: none;" data-bind="visible: isUpdating">
@@ -98,24 +98,24 @@
             </div>
         </div>
         <!-- /ko -->
-    </div>
-    <footer class="footer">
-        <div class="container-fluid vertical-center-box text-muted">
-            <div>
-                <div class="h-fill-box width-100 text-center">
-                    <div class="inline-block">
-                        der&nbsp;Aktualisierungsstand
-                    </div>
-                    <div class="flex-auto" data-bind="attr: { title: nextTransitionTooltip }">
-                        (next screen in
-                        <span data-bind="text: secondsToNextTransition"></span>s)
-                    </div>
-                    <div class="inline-block">
-                        <span data-bind="text: nowFormatted"></span>
+        <footer style="height: 3em">
+            <div class="vertical-center-box text-muted">
+                <div>
+                    <div class="h-fill-box width-100 text-center">
+                        <div class="inline-block">
+                            der&nbsp;Aktualisierungsstand
+                        </div>
+                        <div class="flex-auto">
+                            (next screen in
+                            <span data-bind="text: secondsToNextTransition"></span>s)
+                        </div>
+                        <div class="inline-block">
+                            <span data-bind="text: nowFormatted"></span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 </body>
 </html>

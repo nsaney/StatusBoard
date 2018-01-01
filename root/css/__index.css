@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    height: calc(100% - 60px);
+    height: 100%;
     display: flex;
 }
 
@@ -32,6 +32,12 @@ body {
     flex: auto;
 }
 
+/* Overrides */
+
+.container-fluid {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 
 /* Nav Bar */
 .nav {
@@ -45,11 +51,12 @@ body {
 }
 
 .nav-tabs > li.active {
-    height: calc(100% + 10px);
-    margin-top: -10px;
+    height: calc(100% + 5px);
+    margin-top: -5px;
 }
 
 .nav-tabs > li > a,
+.nav-tabs > li > a:hover,
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
@@ -59,7 +66,10 @@ body {
 
 /* Status Bar */
 .status-bar {
+    position: relative;
     padding: 5px;
+    border: solid black;
+    border-width: 0 1px;
 }
 
 /* Prev/Next Side Buttons */
@@ -69,19 +79,17 @@ body {
     padding: 5px;
     min-width: 50px;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
 }
 
 .prev-button {
     padding-right: 0;
-    border-top-right-radius: 0;
     border-right: 0 none;
     border-bottom-right-radius: 0;
 }
 
 .next-button {
     padding-left: 0;
-    border-top-left-radius: 0;
     border-left: 0 none;
     border-bottom-left-radius: 0;
 }
@@ -163,6 +171,10 @@ body {
 
 .text-monospace {
     font-family: monospace;
+}
+
+.text-times {
+    font-family: times;
 }
 
 .text-pre-wrap {
