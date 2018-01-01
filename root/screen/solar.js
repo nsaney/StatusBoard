@@ -206,18 +206,21 @@ __sb.fn.__addScreen('solar', function solar(self) {
         });
     }
     
-    function PhenPosition(name) {
+    self._PhenPosition = PhenPosition;
+    function PhenPosition(name, orb, day) {
         var p = this;
         AbstractTimePosition.call(this, name, function timeFn() {
             var data = self.data();
             if (!data) { return null; }
-            var currentDay = data.orbs.getOrbItem('sun', '');
+            var currentDay = data.orbs.getOrbItem(orb, day);
             if (!currentDay ) { return null; }
             var entry = ko.utils.arrayFirst(currentDay.value, function kouaf(x) {
                 return x.phen === p.NAME;
             });
             return entry && entry.time;
         });
+        p.ORB = orb;
+        p.DAY = day;
         p.info = self.getPhenInfoByAbbr(name);
         var baseStyle = p.style;
         p.style = ko.computed(function style() {
@@ -267,7 +270,7 @@ __sb.fn.__addScreen('solar', function solar(self) {
         };
     });
     self.phenPositions = ['BC', 'R', 'U', 'S', 'EC'].map(function processPhen(x) {
-        return new PhenPosition(x);
+        return new PhenPosition(x, 'sun', '');
     });
     self.currentTimePosition = new CurrentTimePosition();
     self.getPhenPositionByName = function getPhenPositionByName(name) {
@@ -275,47 +278,54 @@ __sb.fn.__addScreen('solar', function solar(self) {
             return x.NAME === name;
         });
     };
-    self.references.mainCircle = {
-        style: ko.computed(function style() {
-            var a = self.references.anchor;
-            var u = self.getPhenPositionByName('U');
-            return {
-                position: 'absolute',
-                border: '1px solid black',
-                left: a.left() + 'px',
-                top: a.top() + 'px',
-                borderRadius: a.radius() + 'px',
-                width: a.sideSize() + 'px',
-                height: a.sideSize() + 'px',
-                background: 'linear-gradient(' + (u.degrees() + 90) + 'deg, #000000, #001f1f, #004f4f, #ff9f9f, #ffff00, #ffffff)'
-            };
-        })
-    };
-    ko.bindingHandlers.sb_solar_anchor = {
-        init: function initSolarElement(element) {
-            // styles
-            var horizontalMarginSize = 1.5;
-            var verticalMarginSize = horizontalMarginSize;
-            var marginUnit = 'em';
-            var hm = '' + horizontalMarginSize + marginUnit;
-            var vm = '' + verticalMarginSize + marginUnit;
-            var h2m = '' + (2*horizontalMarginSize) + marginUnit;
-            var v2m = '' + (2*verticalMarginSize) + marginUnit;
-            element.id = 'solarAnchor';
-            element.style.position = 'relative';
-            element.style.width = 'calc(100% - ' + h2m + ')';
-            element.style.height = 'calc(100% - ' + v2m + ')';
-            element.style.margin = vm + ' ' + hm;
-            
-            // events
-            function updateAnchor() {
-                self.references.anchor.parentElement(element);
+    self.references.mainCircleStyle = ko.computed(function mainCircleStyle() {
+        var a = self.references.anchor;
+        return {
+            position: 'absolute',
+            border: '1px solid black',
+            left: a.left() + 'px',
+            top: a.top() + 'px',
+            borderRadius: a.radius() + 'px',
+            width: a.sideSize() + 'px',
+            height: a.sideSize() + 'px'
+        };
+    });
+    self.references.solarCircleStyle = ko.computed(function solarCircleStyle() {
+        var mainCircleStyle = self.references.mainCircleStyle();
+        var u = self.getPhenPositionByName('U');
+        var result = {
+            background: 'linear-gradient(' + (u.degrees() + 90) + 'deg, #000000, #001f1f, #004f4f, #ff9f9f, #ffff00, #ffffff)'
+        };
+        return $.extend(result, mainCircleStyle);
+    });
+    self.getAnchorBinding = function getAnchorBinding(screenName) {
+        return {
+            init: function initSolarElement(element) {
+                // styles
+                var horizontalMarginSize = 1.5;
+                var verticalMarginSize = horizontalMarginSize;
+                var marginUnit = 'em';
+                var hm = '' + horizontalMarginSize + marginUnit;
+                var vm = '' + verticalMarginSize + marginUnit;
+                var h2m = '' + (2*horizontalMarginSize) + marginUnit;
+                var v2m = '' + (2*verticalMarginSize) + marginUnit;
+                element.id = screenName + 'Anchor';
+                element.style.position = 'relative';
+                element.style.width = 'calc(100% - ' + h2m + ')';
+                element.style.height = 'calc(100% - ' + v2m + ')';
+                element.style.margin = vm + ' ' + hm;
+                
+                // events
+                function updateAnchor() {
+                    self.references.anchor.parentElement(element);
+                }
+                setTimeout(updateAnchor, 1);
+                $(window).on('resize.' + screenName, updateAnchor);
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function dispose() {
+                    $(window).off('resize.' + screenName);
+                });
             }
-            setTimeout(updateAnchor, 1);
-            $(window).on('resize.solar', updateAnchor);
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function dispose() {
-                $(window).off('resize.solar');
-            });
-        }
+        };
     };
+    ko.bindingHandlers.sb_solar_anchor = self.getAnchorBinding('solar');
 });

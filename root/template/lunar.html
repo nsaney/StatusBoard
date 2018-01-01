@@ -1,43 +1,59 @@
-<div class="vertical-center-box" data-bind="with: data">
-    <div class="horizontal-center-box">
-        <div class="row">
-            <div class="col-sm-6" data-bind="with: fromSolar">
-                <h2>Lunar Events</h2>
-                <table class="table table-skinny" data-bind="foreach: orbs.allmoondata">
-                    <tbody data-bind="foreach: value">
-                        <tr>
-                            <th>
-                                <span data-bind="text: $parents[3].getPhenInfoByAbbr(phen).meaning"></span>
-                            </th>
-                            <td>
-                                <span data-bind="text: time"></span>
-                            </td>
-                            <td>
-                                <span data-bind="text: $parent.prefix"></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-6">
-                <h2>Next Phases</h2>
-                <table class="table table-skinny">
+<div class="h-fill-auto-box" data-bind="with: data" style="background-color: #bfbfbf; font-family: 'dejavu sans';">
+    <div data-bind="with: $parent.solarScreen">
+        <div class="vertical-center-box font-size-75">
+            <div>
+                <table class="table table-hover table-striped table-condensed" style="margin: 0; border: solid black; border-width: 1px 1px 1px 0; background-color: white;">
                     <thead>
-                        <tr>
-                            <th>Phase</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                        <tr style="background-color: pink">
+                            <th>Abbr</th>
+                            <th>Meaning</th>
                         </tr>
                     </thead>
-                    <tbody data-bind="foreach: phasedata">
+                    <tbody data-bind="foreach: phenomenonInfos">
                         <tr>
-                            <td class="text-no-wrap"><span data-bind="text: phase"></span></td>
-                            <td class="text-no-wrap"><span data-bind="text: date"></span></td>
-                            <td class="text-no-wrap"><span data-bind="text: time"></span></td>
+                            <th>
+                                <span class="text-monospace" data-bind="text: abbr"></span>
+                            </th>
+                            <td>
+                                <span data-bind="text: meaning"></span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+    <div class="flex-auto">
+        <div class="font-size-125" data-bind="sb_lunar_anchor: null, with: $parent">
+            <div data-bind="style: lunarCircleStyle"></div>
+            <div data-bind="style: solarScreen.references.center.style">
+                <div data-bind="style: solarScreen.references.points.style" style="background-color: black;"></div>
+            </div>
+            <div data-bind="foreach: phenPositions">
+                <div data-bind="style: style">
+                    <div data-bind="style: $parent.solarScreen.references.points.style" style="background-color: black;"></div>
+                    <div data-bind="style: radialBoxStyle">
+                        <div data-bind="style: innerRadialBoxStyle">
+                            <span data-bind="text: time"></span>
+                            <span>&nbsp;</span>
+                            <span data-bind="visible: DAY"><span class="font-size-75" data-bind="text: DAY"></span></span>
+                            <b data-bind="text: NAME"></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ko with: solarScreen -->
+            <div data-bind="with: currentTimePosition">
+                <div data-bind="style: style">
+                    <div data-bind="style: $parent.references.points.style" style="background-color: white;"></div>
+                    <div data-bind="style: externalBoxStyle">
+                        <div data-bind="style: innerExternalBoxStyle">
+                            <b data-bind="text: time"></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
         </div>
     </div>
 </div>
