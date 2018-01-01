@@ -241,16 +241,26 @@ __sb.fn.__addScreen('solar', function solar(self) {
     
     self.references = {};
     self.references.anchor = new Anchor();
-    self.references.center = {
-        style: ko.computed(function style() {
-            var a = self.references.anchor;
-            return {
-                position: 'absolute',
-                left: a.centerHorizontal() + 'px',
-                top: a.centerVertical() + 'px'
-            };
-        })
-    };
+    self.references.centerStyle = ko.computed(function centerStyle() {
+        var a = self.references.anchor;
+        return {
+            position: 'absolute',
+            left: a.centerHorizontal() + 'px',
+            top: a.centerVertical() + 'px'
+        };
+    });
+    self.references.midnightTransitionStyle = ko.computed(function midnightTransitionStyle() {
+        var a = self.references.anchor;
+        return {
+            position: 'absolute',
+            left: '-1px',
+            top: '0',
+            height: a.radius() + 'px',
+            width: a.radius() + 'px',
+            background: 'linear-gradient(0deg, rgba(0,0,0,0.5), transparent ' + a.radius() + 'px)',
+            borderBottomRightRadius: a.radius() + 'px'
+        };
+    });
     self.references.points = {
         radius: ko.observable(3),
         radiusUnit: ko.observable('px')

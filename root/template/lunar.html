@@ -26,8 +26,9 @@
     <div class="flex-auto">
         <div class="font-size-125" data-bind="sb_lunar_anchor: null, with: $parent">
             <div data-bind="style: lunarCircleStyle"></div>
-            <div data-bind="style: solarScreen.references.center.style">
+            <div data-bind="style: solarScreen.references.centerStyle">
                 <div data-bind="style: solarScreen.references.points.style" style="background-color: black;"></div>
+                <div data-bind="style: solarScreen.references.midnightTransitionStyle"></div>
             </div>
             <div data-bind="foreach: phenPositions">
                 <div data-bind="style: style">

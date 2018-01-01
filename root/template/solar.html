@@ -26,8 +26,9 @@
     <div class="flex-auto">
         <div class="font-size-125" data-bind="sb_solar_anchor: null, with: $parent">
             <div data-bind="style: references.solarCircleStyle"></div>
-            <div data-bind="style: references.center.style">
+            <div data-bind="style: references.centerStyle">
                 <div data-bind="style: references.points.style" style="background-color: black;"></div>
+                <div data-bind="style: references.midnightTransitionStyle"></div>
             </div>
             <div data-bind="foreach: phenPositions">
                 <div data-bind="style: style">
