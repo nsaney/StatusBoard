@@ -27,10 +27,10 @@
     <div class="v-fill-auto-box container-fluid">
         <ul class="nav nav-tabs" data-bind="foreach: screens">
             <li role="presentation" data-bind="css: {'active': isActive }, style: { backgroundColor: COLOR_2 }">
-                <a href="#" data-bind="click: setActive, style: { color: COLOR_1 }">
+                <button type="button" data-bind="click: setActive, style: { color: COLOR_1 }">
                     <b class="text-small-caps" data-bind="text: NAME"></b>
                     <sup data-bind="visible: !REQUIRED">-</sup>
-                </a>
+                </button>
             </li>
         </ul>
         <!-- ko with: currentScreen -->
@@ -98,9 +98,9 @@
             </div>
         </div>
         <!-- /ko -->
-        <footer style="height: 2.5em">
+        <footer class="line-height-1" style="flex: 0">
             <div class="vertical-center-box text-muted">
-                <div>
+                <div style="height: 2em">
                     <div class="h-fill-box width-100 text-center">
                         <div class="inline-block">
                             der&nbsp;Aktualisierungsstand
