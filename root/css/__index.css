@@ -35,18 +35,31 @@ body {
 
 /* Nav Bar */
 .nav {
-    margin: 10px 0;
+    margin: 10px 0 0 0;
+    border-bottom: none;
 }
 
-.nav-tabs > li > a {
+.nav-tabs > li {
+    margin-bottom: 0;
     border-radius: 10px 10px 0 0;
 }
 
-.nav > li:not(.active) > a {
-    margin-top: 5px;
+.nav-tabs > li.active {
+    height: calc(100% + 10px);
+    margin-top: -10px;
 }
-.nav > li.active > a {
-    padding-bottom: 15px;
+
+.nav-tabs > li > a,
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    border: none;
+    background-color: transparent;
+}
+
+/* Status Bar */
+.status-bar {
+    padding: 5px;
 }
 
 /* Prev/Next Side Buttons */
@@ -54,7 +67,7 @@ body {
 .next-button {
     display: inline-block;
     padding: 5px;
-    min-width: 4%;
+    min-width: 50px;
     border: 1px solid black;
     border-radius: 5px;
 }
@@ -185,7 +198,6 @@ body {
 }
 
 .blurred-background {
-    z-index: -10000;
     display: block;
     position: absolute;
     top: 0;
