@@ -19,6 +19,7 @@ __sb.resources = {
         // name[, prod[, dev]]
         ['moment', 'min'],
         ['jquery-3.2.1', 'min'],
+        ['jquery-ui-1.12.1-custom', 'min'],
         ['bootstrap', 'min'],
         ['knockout-3.4.2', null, 'debug'],
         '__screen',

@@ -84,6 +84,18 @@ $(function () {
     });
     
     
+    ////// jQuery //////
+    
+    $("body").keyup(function(e) {
+        if (e.which === $.ui.keyCode.LEFT) {
+            self.setPrevScreenActive(self, e);
+        }
+        else if (e.which === $.ui.keyCode.RIGHT) {
+            self.setNextScreenActive(self, e);
+        }
+    });
+    
+    
     ////// Functions //////
     __sb.fn.__addScreen = function __addScreen(name, initFn) {
         var screenItem = ko.utils.arrayFirst(__sb.screens, function nameFilter(item) {
