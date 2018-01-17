@@ -1,7 +1,7 @@
 <div class="vertical-center-box" data-bind="with: data">
-    <div class="horizontal-center-box">
+    <div class="horizontal-center-box" style="padding: 5px;">
         <div data-bind="with: properties">
-            <div class="alternating-row-directions" style="padding: 5px;" data-bind="foreach: periods || []">
+            <div class="alternating-row-directions" data-bind="foreach: periods || []">
                 <div class="h-fill-box width-100" style="margin-bottom: 20px">
                     <div class="flex-none">
                         <div class="vertical-center-box">
@@ -11,27 +11,17 @@
                         </div>
                     </div>
                     <div class="flex-none">&nbsp;</div>
-                    <div class="flex-none">
-                        <table class="height-100 font-size-125" style="font-style: italic">
-                            <tr>
-                                <td class="text-center">
-                                    <span data-bind="text: temperature"></span>
-                                    &deg;<span data-bind="text: temperatureUnit"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    <span data-bind="text: temperatureAlt"></span>
-                                    &deg;<span data-bind="text: temperatureUnitAlt"></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="flex-none">&nbsp;</div>
                     <div class="flex-auto">
                         <div class="panel panel-primary no-margin">
                             <div class="panel-heading font-size-125">
                                 <b><span data-bind="text: name"></span></b>
+                                <div class="pull-right">
+                                    <span data-bind="text: temperature"></span>
+                                    &deg;<span data-bind="text: temperatureUnit"></span>
+                                    &nbsp;|&nbsp;
+                                    <span data-bind="text: temperatureAlt"></span>
+                                    &deg;<span data-bind="text: temperatureUnitAlt"></span>
+                                </div>
                             </div>
                             <div class="panel-body">
                                 <span data-bind="text: detailedForecast"></span>

@@ -1,9 +1,15 @@
 <div class="vertical-center-box" data-bind="with: data">
-    <div class="horizontal-center-box">
+    <div class="horizontal-center-box" style="padding: 5px;">
         <div data-bind="foreach: features || []">
             <div data-bind="with: properties">
-                <h4 data-bind="text: headline"></h4>
-                <pre data-bind="text: description"></pre>
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <b><span data-bind="text: headline"></span></b>
+                    </div>
+                    <div class="panel-body">
+                        <span class="text-pre-wrap" data-bind="text: description"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
