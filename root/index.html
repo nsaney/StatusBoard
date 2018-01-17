@@ -75,7 +75,7 @@
             </div>
             <div class="h-fill-auto-box">
                 <!-- ko with: root.prevScreen -->
-                <div class="btn prev-button" data-bind="click: root.setPrevScreenActive, style: { color: COLOR_1, backgroundColor: COLOR_2 }">
+                <div class="btn prev-button" data-bind="click: root.setPrevScreenActive">
                     <div class="vertical-center-box">
                         <div class="font-size-200">
                             <span class="glyphicon glyphicon-chevron-left"></span>
@@ -87,7 +87,7 @@
                     <div class="v-fill-auto-box" data-bind="template: TEMPLATE_NAME, data: $data"></div>
                 </div>
                 <!-- ko with: root.nextScreen -->
-                <div class="btn next-button" data-bind="click: root.setNextScreenActive, style: { color: COLOR_1, backgroundColor: COLOR_2 }">
+                <div class="btn next-button" data-bind="click: root.setNextScreenActive">
                     <div class="vertical-center-box">
                         <div class="font-size-200">
                             <span class="glyphicon glyphicon-chevron-right"></span>

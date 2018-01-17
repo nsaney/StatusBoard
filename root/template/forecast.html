@@ -1,21 +1,45 @@
 <div class="vertical-center-box" data-bind="with: data">
     <div class="horizontal-center-box">
         <div data-bind="with: properties">
-            <table class="width-100">
-                <tbody data-bind="foreach: periods || []">
-                    <tr>
-                        <td>
-                            <img src="about:blank" data-bind="attr: { src: icon }"/>
-                        </td>
-                        <td class="text-left">
-                            <h4 data-bind="text: name"></h4>
-                            <p>
+            <div class="alternating-row-directions" style="padding: 5px;" data-bind="foreach: periods || []">
+                <div class="h-fill-box width-100" style="margin-bottom: 20px">
+                    <div class="flex-none">
+                        <div class="vertical-center-box">
+                            <div>
+                                <img src="about:blank" data-bind="attr: { src: icon }" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-none">&nbsp;</div>
+                    <div class="flex-none">
+                        <table class="height-100 font-size-125" style="font-style: italic">
+                            <tr>
+                                <td class="text-center">
+                                    <span data-bind="text: temperature"></span>
+                                    &deg;<span data-bind="text: temperatureUnit"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <span data-bind="text: temperatureAlt"></span>
+                                    &deg;<span data-bind="text: temperatureUnitAlt"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="flex-none">&nbsp;</div>
+                    <div class="flex-auto">
+                        <div class="panel panel-primary no-margin">
+                            <div class="panel-heading font-size-125">
+                                <b><span data-bind="text: name"></span></b>
+                            </div>
+                            <div class="panel-body">
                                 <span data-bind="text: detailedForecast"></span>
-                            </p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

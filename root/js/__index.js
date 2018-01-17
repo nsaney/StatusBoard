@@ -85,7 +85,6 @@ $(function () {
     
     
     ////// jQuery //////
-    
     $("body").keyup(function(e) {
         if (e.which === $.ui.keyCode.LEFT) {
             self.setPrevScreenActive(self, e);

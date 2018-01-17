@@ -22,18 +22,27 @@ body {
     overflow-x: auto;
 }
 
-.flex-auto {
-    display: inline-block;
-}
-
 .flex-auto,
 .v-fill-auto-box,
 .h-fill-auto-box {
     flex: auto;
 }
 
-/* Overrides */
+.flex-none {
+    flex: none;
+}
 
+.flex-auto,
+.flex-none {
+    display: inline-block;
+}
+
+.alternating-row-directions > :nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+
+/* Overrides */
 .container-fluid {
     padding-left: 10px;
     padding-right: 10px;
@@ -82,6 +91,8 @@ body {
     min-width: 50px;
     border: 1px solid black;
     border-radius: 0 0 5px 5px;
+    color: white;
+    background-color: #444;
 }
 
 .prev-button {
@@ -107,6 +118,10 @@ body {
 .vertical-center-box > * {
   display: table-cell;
   vertical-align: middle;
+}
+
+.vertical-align-top {
+  vertical-align: top;
 }
 
 /* Horizontal Alignment */
@@ -166,6 +181,10 @@ body {
 
 .font-size-200 {
     font-size: 200%;
+}
+
+.no-margin {
+    margin: 0;
 }
 
 .no-padding {
