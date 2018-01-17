@@ -312,7 +312,7 @@ __sb.fn.__addScreen('solar', function solar(self) {
         return {
             init: function initSolarElement(element) {
                 // styles
-                var horizontalMarginSize = 1.5;
+                var horizontalMarginSize = 2;
                 var verticalMarginSize = horizontalMarginSize;
                 var marginUnit = 'em';
                 var hm = '' + horizontalMarginSize + marginUnit;
