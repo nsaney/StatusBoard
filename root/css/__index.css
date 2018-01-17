@@ -200,6 +200,10 @@ body {
     border: 2px solid black;
 }
 
+.clear-both {
+    clear: both;
+}
+
 /* Positioning Classes */
 .relative {
     position: relative;

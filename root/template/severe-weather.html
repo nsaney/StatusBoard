@@ -1,0 +1,10 @@
+<div class="vertical-center-box" data-bind="with: data">
+    <div class="horizontal-center-box">
+        <div data-bind="foreach: features || []">
+            <div data-bind="with: properties">
+                <h4 data-bind="text: headline"></h4>
+                <pre data-bind="text: description"></pre>
+            </div>
+        </div>
+    </div>
+</div>

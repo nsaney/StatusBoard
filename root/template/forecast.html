@@ -1,0 +1,21 @@
+<div class="vertical-center-box" data-bind="with: data">
+    <div class="horizontal-center-box">
+        <div data-bind="with: properties">
+            <table class="width-100">
+                <tbody data-bind="foreach: periods || []">
+                    <tr>
+                        <td>
+                            <img src="about:blank" data-bind="attr: { src: icon }"/>
+                        </td>
+                        <td class="text-left">
+                            <h4 data-bind="text: name"></h4>
+                            <p>
+                                <span data-bind="text: detailedForecast"></span>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
