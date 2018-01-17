@@ -153,17 +153,48 @@
     };
     
     ////// Static Methods //////
-    Screen.callAjax = function callAjax(ajaxSettings) {
+    Screen.callIndividualAjax = function callIndividualAjax(ajaxSettings) {
         var deferred = $.Deferred();
         var jqXhr = $.ajax(ajaxSettings);
         jqXhr.done(jqXhr_done);
-        function jqXhr_done(rawData, textStatus) {
+        jqXhr.fail(jqXhr_fail);
+        function jqXhr_done(rawData, _, __) {
             deferred.resolve(rawData);
         }
-        jqXhr.fail(jqXhr_fail);
         function jqXhr_fail(_, __, errorThrown) {
             deferred.reject(errorThrown);
-            console.log(errorThrown);
+        }
+        return deferred.promise();
+    };
+    
+    Screen.callAjax = function callAjax(ajaxSettings) {
+        if (!Array.isArray(ajaxSettings)) {
+            return Screen.callIndividualAjax(ajaxSettings);
+        }
+        
+        var deferred = $.Deferred();
+        var resultMap = {};
+        var promises = ajaxSettings.map(function (ajs) {
+            var promise = Screen.callIndividualAjax(ajs);
+            var promise_done = getDoneFn(ajs);
+            promise.done(promise_done);
+            return promise;
+            function getDoneFn(innerAjs) {
+                return function innerAjs_done(rawData) {
+                    var key = innerAjs.NAME;
+                    if (!key) { return; }
+                    resultMap[key] = rawData;
+                };
+            }
+        });
+        var promiseAll = $.when(promises);
+        promiseAll.done(promiseAll_done);
+        promiseAll.fail(promiseAll_fail);
+        function promiseAll_done() {
+            deferred.resolve(resultMap);
+        }
+        function promiseAll_fail(err) {
+            deferred.reject(err);
         }
         return deferred.promise();
     };
