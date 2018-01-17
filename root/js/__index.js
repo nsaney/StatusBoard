@@ -70,6 +70,18 @@ $(function () {
         var formattedTime = nextTransition.format(__sb.config.momentLongFormat);
         return 'Next screen transition at ' + formattedTime;
     });
+    self.nextRequiredScreen = ko.computed(function nextRequiredScreen() {
+        var currentScreen = self.currentScreen();
+        if (!currentScreen) { return null; }
+        var screens = self.screens();
+        var screenCount = screens.length;
+        var next = { screen: currentScreen };
+        do {
+            next.index = next.screen.INDEX;
+            next.screen = screens[(next.index + 1) % screenCount];
+        } while (!next.screen.REQUIRED);
+        return next.screen;
+    });
     
     
     ////// Functions //////
@@ -106,7 +118,7 @@ $(function () {
             if (!nextTransition) { return; }
             var nextTransitionIsDue = now.isAfter(nextTransition);
             if (!nextTransitionIsDue) { return; }
-            var nextScreen = self.nextScreen();
+            var nextScreen = self.nextRequiredScreen();
             if (!nextScreen) { return; }
             nextScreen.setActive(nextScreen, null, nextTransition);
         });
