@@ -3,6 +3,10 @@ html {
     height: 100%;
 }
 
+html * {
+    cursor: none;
+}
+
 body {
     height: 100%;
     display: flex;
