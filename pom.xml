@@ -3,114 +3,93 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 >
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>chairosoft</groupId>
-    <artifactId>statusboard</artifactId>
-    <version>0.1</version>
+  <groupId>chairosoft</groupId>
+  <artifactId>statusboard</artifactId>
+  <version>0.1</version>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
-    <dependencies>
-        <!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
-        <!-- <dependency> -->
-            <!-- <groupId>commons-cli</groupId> -->
-            <!-- <artifactId>commons-cli</artifactId> -->
-            <!-- <version>1.4</version> -->
-        <!-- </dependency> -->
+  <dependencies>
 
-        <!-- junit -->
-        <!-- <dependency> -->
-            <!-- <groupId>junit</groupId> -->
-            <!-- <artifactId>junit</artifactId> -->
-            <!-- <version>4.11</version> -->
-            <!-- <scope>test</scope> -->
-        <!-- </dependency> -->
-        
-        <!-- Jetty / Servlets -->
-        <dependency>
-          <groupId>org.eclipse.jetty</groupId>
-          <artifactId>jetty-server</artifactId>
-          <version>9.4.8.v20171121</version>
-        </dependency>
-        <dependency>
-          <groupId>org.eclipse.jetty</groupId>
-          <artifactId>jetty-servlet</artifactId>
-          <version>9.4.8.v20171121</version>
-        </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>javax.servlet-api</artifactId>
-          <version>4.0.0</version>
-        </dependency>
-        
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
-        <!-- <dependency> -->
-            <!-- <groupId>org.apache.commons</groupId> -->
-            <!-- <artifactId>commons-collections4</artifactId> -->
-            <!-- <version>4.1</version> -->
-        <!-- </dependency> -->
-        
-        <!-- https://mvnrepository.com/artifact/org.json/json -->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20171018</version>
-        </dependency>
-        
-    </dependencies>
+    <!-- Jetty / Servlets -->
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>9.4.8.v20171121</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-servlet</artifactId>
+      <version>9.4.8.v20171121</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.0</version>
+    </dependency>
 
-    <build>
-        <finalName>StatusBoard</finalName>
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20171018</version>
+    </dependency>
 
-        <plugins>
+  </dependencies>
 
-            <!-- Make this jar executable -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <!-- Jar file entry point -->
-                            <mainClass>chairosoft.statusboard.StatusBoardMain</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
+  <build>
+    <finalName>StatusBoard</finalName>
 
-            <!-- Copy project dependency -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <createDependencyReducedPom>false</createDependencyReducedPom>
-                </configuration>
-            </plugin>
+    <plugins>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
+      <!-- Make this jar executable -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <!-- Jar file entry point -->
+              <mainClass>chairosoft.statusboard.StatusBoardMain</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
 
-    </build>
+      <!-- Copy project dependency -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <createDependencyReducedPom>false</createDependencyReducedPom>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+
+  </build>
 
 </project>
