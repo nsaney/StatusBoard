@@ -1,13 +1,26 @@
 <div class="vertical-center-box" data-bind="with: data">
     <div class="horizontal-center-box" style="padding: 5px;">
-        <div data-bind="foreach: features || []">
-            <div data-bind="with: properties">
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <b><span data-bind="text: headline"></span></b>
-                    </div>
-                    <div class="panel-body">
-                        <span class="text-pre-wrap" data-bind="text: description"></span>
+        <h3>
+            <span data-bind="text: title"></span>
+        </h3>
+        <br/>
+        <div data-bind="with: features || []">
+            <div>
+                There
+                <span data-bind="text: length === 1 ? 'is' : 'are'"></span>
+                <span data-bind="text: length"></span>
+                active severe weather
+                alert<span data-bind="text: length === 1 ? '' : 's'"></span>.
+            </div>
+            <div data-bind="foreach: $data">
+                <div data-bind="with: properties">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <b><span data-bind="text: headline"></span></b>
+                        </div>
+                        <div class="panel-body">
+                            <span class="text-pre-wrap" data-bind="text: description"></span>
+                        </div>
                     </div>
                 </div>
             </div>

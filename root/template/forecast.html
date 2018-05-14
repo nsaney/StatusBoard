@@ -1,6 +1,39 @@
 <div class="vertical-center-box" data-bind="with: data">
     <div class="horizontal-center-box" style="padding: 5px;">
-        <div data-bind="with: properties">
+        <div class="width-100" style="margin-bottom: 20px" data-bind="with: currentObservation.properties">
+            <div class="h-fill-box width-100">
+                <div class="flex-auto">
+                    <div class="panel panel-info no-margin">
+                        <div class="panel-heading font-size-125">
+                            <b>Current Conditions</b>
+                            <div class="pull-right" data-bind="with: temperature">
+                                <span data-bind="text: value.toFixed(0)"></span>
+                                &deg;<span data-bind="text: unit"></span>
+                                (<span data-bind="text: valueAlt.toFixed(0)"></span>
+                                &deg;<span data-bind="text: unitAlt"></span>)
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <span data-bind="text: textDescription"></span>
+                            <span data-bind="with: relativeHumidity">
+                                |
+                                <span data-bind="text: value.toFixed(0)"></span>%
+                                Humidity
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none">&nbsp;</div>
+                <div class="flex-none">
+                    <div class="vertical-center-box">
+                        <div>
+                            <img src="about:blank" data-bind="attr: { src: icon }" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-bind="with: forecast.properties">
             <div class="alternating-row-directions" data-bind="foreach: periods || []">
                 <div class="h-fill-box width-100" style="margin-bottom: 20px">
                     <div class="flex-none">
