@@ -88,20 +88,25 @@
         if (!this.__isStarted) { return; }
         this.__isStarted = false;
         window.clearTimeout(this.__timeoutId);
-    }
+    };
     
     Screen.prototype.__doUpdate = function __doUpdate() {
         var self = this;
         if (self.isUpdating()) { return; }
         self.isUpdating(true);
-        
-        var ajaxSettings = self.getAjaxSettings();
+
         var promise = null;
-        if (ajaxSettings === Screen.SPOOF_IN_PARSE_RAW_DATA) {
-            promise = Screen.spoofAjax();
+        try {
+            var ajaxSettings = self.getAjaxSettings();
+            if (ajaxSettings === Screen.SPOOF_IN_PARSE_RAW_DATA) {
+                promise = Screen.spoofAjax();
+            }
+            else {
+                promise = Screen.callAjax(ajaxSettings);
+            }
         }
-        else {
-            promise = Screen.callAjax(ajaxSettings);
+        catch (ex) {
+            promise = $.Deferred().reject(ex).promise();
         }
         
         promise.progress(promise_progress);
@@ -154,6 +159,9 @@
     
     ////// Static Methods //////
     Screen.callIndividualAjax = function callIndividualAjax(ajaxSettings) {
+        if (ajaxSettings.then) {
+            return ajaxSettings;
+        }
         var deferred = $.Deferred();
         var jqXhr = $.ajax(ajaxSettings);
         jqXhr.done(jqXhr_done);
@@ -174,20 +182,19 @@
         
         var deferred = $.Deferred();
         var resultMap = {};
-        var promises = ajaxSettings.map(function (ajs) {
-            var promise = Screen.callIndividualAjax(ajs);
-            var promise_done = getDoneFn(ajs);
-            promise.done(promise_done);
-            return promise;
-            function getDoneFn(innerAjs) {
-                return function innerAjs_done(rawData) {
-                    var key = innerAjs.NAME;
-                    if (!key) { return; }
-                    resultMap[key] = rawData;
-                };
+        var promises = ajaxSettings.map(function (ajs, i) {
+            var individualDeferred = $.Deferred();
+            var ajaxPromise = Screen.callIndividualAjax(ajs);
+            ajaxPromise.done(ajaxPromise_done);
+            function ajaxPromise_done(rawData) {
+                var key = ajs.NAME;
+                if (!key) { key = '__result_' + i; }
+                resultMap[key] = rawData;
+                individualDeferred.resolve();
             }
+            return individualDeferred.promise();
         });
-        var promiseAll = $.when(promises);
+        var promiseAll = $.when.apply($, promises);
         promiseAll.done(promiseAll_done);
         promiseAll.fail(promiseAll_fail);
         function promiseAll_done() {

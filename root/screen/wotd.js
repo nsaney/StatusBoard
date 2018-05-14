@@ -11,9 +11,12 @@ __sb.fn.__addScreen('wotd', function wotd(self) {
         var doc = document.implementation.createHTMLDocument("dummy");
         doc.documentElement.innerHTML = rawData;
         var img = doc.querySelectorAll('.wotd-today a[href*="dictionary.com/browse"] img')[0];
-        return {
+        var data = {
+            imageAlt: img.alt || '',
             imageSrc: img.src,
             imageSrcUrl: 'url("' + img.src + '")'
         };
+//        console.log(data);
+        return data;
     };
 });

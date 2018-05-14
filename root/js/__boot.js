@@ -19,7 +19,7 @@
     //// CYA ////
     if (!window.console) { window.console = {}; }
     if (!console.log) { console.log = __sb.fn.noop; }
-    if (!console.logError) { console.logError = __sb.fn.noop; }
+    if (!console.logError) { console.logError = console.log; }
     window.onerror = function window_onerror(msg, source, line, col, err) {
         var errMsg = 'Error in ' + source + ': line ' + line + ', col ' + col;
         errMsg += '. Message: ' + msg;

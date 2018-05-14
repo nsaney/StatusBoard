@@ -1,7 +1,7 @@
-__sb.fn.__addScreen('severe-weather', function severe_weather() {
+__sb.fn.__addScreen('severe-weather', function severe_weather(self) {
     "use strict";
     
-    this.getAjaxSettings = function getAjaxSettings() {
+    self.getAjaxSettings = function getAjaxSettings() {
         var latitude = __sb.config.latitude;
         var longitude = __sb.config.longitude;
         var point = latitude + ',' + longitude;
@@ -14,7 +14,7 @@ __sb.fn.__addScreen('severe-weather', function severe_weather() {
             dataType: 'json'
         };
     };
-    this.parseRawData = function parseRawData(rawData) {
+    self.parseRawData = function parseRawData(rawData) {
         console.log(rawData);
         return rawData;
     };

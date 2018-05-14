@@ -23,8 +23,10 @@ __sb.fn.__addScreen('npr', function npr(self) {
             }
             anchor.target = 'npr';
         });
-        return {
+        var data = {
             bodyHtml: doc.body.innerHTML
         };
+//        console.log(data);
+        return data;
     };
 });
