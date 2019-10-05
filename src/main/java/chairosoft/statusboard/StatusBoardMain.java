@@ -235,29 +235,22 @@ public class StatusBoardMain {
     public static byte[] getResponseBytes(HttpURLConnection conn)
         throws IOException
     {
-        int contentLength = conn.getContentLength();
         try (InputStream in = getAvailableResponse(conn)) {
-            return readAllBytes(in, contentLength);
+            return readAllBytes(in);
         }
     }
     
-    public static byte[] readAllBytes(InputStream in, int length) 
+    public static byte[] readAllBytes(InputStream in)
         throws IOException
     {
         byte[] result;
-        if (length < 0) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while (0 < (bytesRead = in.read(buffer))) {
-                baos.write(buffer, 0, bytesRead);
-            }
-            result = baos.toByteArray();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while (0 < (bytesRead = in.read(buffer))) {
+            baos.write(buffer, 0, bytesRead);
         }
-        else {
-            result = new byte[length];
-            in.read(result, 0, length);
-        }
+        result = baos.toByteArray();
         return result;
     }
     
