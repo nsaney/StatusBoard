@@ -2,7 +2,7 @@ __sb.fn.__addScreen('npr', function npr(self) {
     "use strict";
     
     self.getAjaxSettings = function getAjaxSettings() {
-        return __sb.Screen.proxyAjaxSettings({
+        return __sb.Screen.proxyAjaxSettings(self, {
             method: 'GET',
             url: 'https://text.npr.org/'
         });

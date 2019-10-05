@@ -207,14 +207,14 @@
     };
     
     Screen.PROXY_URL = '/proxy/';
-    Screen.proxyAjaxSettings = function proxyAjaxSettings(ajaxSettings) {
+    Screen.proxyAjaxSettings = function proxyAjaxSettings(screen, ajaxSettings) {
         ajaxSettings.data = {
             method: ajaxSettings.method,
             url: ajaxSettings.url,
             jsonData: JSON.stringify(ajaxSettings.data || {})
         };
         ajaxSettings.method = 'POST';
-        ajaxSettings.url = Screen.PROXY_URL;
+        ajaxSettings.url = Screen.PROXY_URL + '?screen=' + screen.NAME;
         return ajaxSettings;
     };
     

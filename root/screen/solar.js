@@ -6,16 +6,15 @@ __sb.fn.__addScreen('solar', function solar(self) {
         var longitude = __sb.config.longitude;
         var date = 'today';
         var tz = self.root.now().utcOffset() / 60;
-        return {
+        return __sb.Screen.proxyAjaxSettings(self, {
             method: 'GET',
-            url: 'http://api.usno.navy.mil/rstt/oneday',
-            data: {
+            url: 'https://api.usno.navy.mil/rstt/oneday?' + $.param({
                 date: date,
                 tz: tz,
                 coords: latitude + ',' + longitude
-            },
+            }),
             dataType: 'json',
-        };
+        });
     };
     
     self.parseRawData = function parseRawData(data) {

@@ -2,9 +2,9 @@ __sb.fn.__addScreen('wotd', function wotd(self) {
     "use strict";
     
     self.getAjaxSettings = function getAjaxSettings() {
-        return __sb.Screen.proxyAjaxSettings({
+        return __sb.Screen.proxyAjaxSettings(self, {
             method: 'GET',
-            url: 'http://www.dictionary.com/wordoftheday/'
+            url: 'https://www.dictionary.com/wordoftheday/'
         });
     };
     self.parseRawData = function parseRawData(rawData) {

@@ -5,15 +5,14 @@ __sb.fn.__addScreen('lunar', function lunar(self) {
     self.getAjaxSettings = function getAjaxSettings() {
         var date = 'today';
         var numPhases = 4;
-        return {
+        return __sb.Screen.proxyAjaxSettings(self, {
             method: 'GET',
-            url: 'http://api.usno.navy.mil/moon/phase',
-            data: {
+            url: 'https://api.usno.navy.mil/moon/phase?' + $.param({
                 date: date,
                 nump: numPhases
-            },
+            }),
             dataType: 'json'
-        };
+        });
     };
     self.parseRawData = function parseRawData(data) {
         console.log(data);
