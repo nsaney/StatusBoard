@@ -1,8 +1,26 @@
-<div class="responsive-fill-box" data-bind="with: data">
-    <div class="blurred-background" 
-         data-bind="style: { 'backgroundImage': imageSrcUrl }"
-    ></div>
-    <div class="responsive-fill-box">
-        <img data-bind="attr: { 'alt': imageAlt, 'src': imageSrc }"/>
+<div class="wotd-page responsive-fill-box" data-bind="with: data">
+    <div class="vertical-center-box text-center font-size-200" style="color: white;" data-bind="{ style: { 'backgroundColor': color } }">
+        <div>
+            <div class="font-size-300">
+                <i><span data-bind="text: title"></span></i>
+            </div>
+            <div class="font-size-75">
+                <div data-bind="html: pronunciationHtml"></div>
+            </div>
+            <br/>
+            <div>
+                <span data-bind="text: definitionText"></span>
+            </div>
+            <br/>
+            <br/>
+            <div>
+                <div class="inline-block" style="padding: 0.25em; background-color: white; color: black;">
+                    <a target="_blank" href="#" data-bind="attr: { href: 'https://www.dictionary.com/browse/' + title }">
+
+                        dictionary entry
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

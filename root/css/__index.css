@@ -171,6 +171,10 @@ body {
     line-height: 1;
 }
 
+.font-size-50 {
+    font-size: 50%;
+}
+
 .font-size-75 {
     font-size: 75%;
 }
@@ -185,6 +189,10 @@ body {
 
 .font-size-200 {
     font-size: 200%;
+}
+
+.font-size-300 {
+    font-size: 300%;
 }
 
 .no-margin {
@@ -261,6 +269,8 @@ body {
     transform: translateX(100%);
 }
 
+
+/* Word of the Day */
 .blurred-background {
     display: block;
     position: absolute;
@@ -271,3 +281,7 @@ body {
     filter: blur(100px);
     background-repeat: repeat;
 }
+
+.wotd-page .luna-pos { font-style: italic; }
+.wotd-page .italic { font-style: italic; }
+.wotd-page .bold { font-weight: bold; }
