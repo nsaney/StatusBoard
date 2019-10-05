@@ -1,38 +1,21 @@
 package chairosoft.statusboard;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.HttpURLConnection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.HandlerContainer;
-import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.eclipse.jetty.server.handler.ContextHandler;
-import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.eclipse.jetty.server.handler.DefaultHandler;
-import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.*;
 import org.eclipse.jetty.util.MultiMap;
 import org.eclipse.jetty.util.UrlEncoded;
 import org.eclipse.jetty.util.log.Log;
 
-import org.json.JSONObject;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
 
 public class StatusBoardMain {
     
@@ -130,23 +113,6 @@ public class StatusBoardMain {
                 this.headers,
                 new String(this.bodyBytes)
             );
-        }
-    }
-    
-    public static class LiberatedBAOS extends ByteArrayOutputStream {
-        //// Constructor ////
-        public LiberatedBAOS() { super(); }
-        
-        //// Instance Methods ////
-        public byte[] getBuffer() { return this.buf; }
-        public void writeAll(InputStream in, int bufferSize) 
-            throws IOException 
-        {
-            byte[] buffer = new byte[bufferSize];
-            int bytesRead;
-            while (0 < (bytesRead = in.read(buffer))) {
-                this.write(buffer, 0, bytesRead);
-            }
         }
     }
     
@@ -280,9 +246,13 @@ public class StatusBoardMain {
     {
         byte[] result;
         if (length < 0) {
-            LiberatedBAOS baos = new LiberatedBAOS();
-            baos.writeAll(in, 2048);
-            result = baos.getBuffer();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while (0 < (bytesRead = in.read(buffer))) {
+                baos.write(buffer, 0, bytesRead);
+            }
+            result = baos.toByteArray();
         }
         else {
             result = new byte[length];
